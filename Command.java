@@ -15,5 +15,5 @@ public abstract class Command {
 		return this.description;
 	}
 
-	abstract public execute(){}
+	abstract public void execute();
 }
