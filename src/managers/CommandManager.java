@@ -1,4 +1,6 @@
-package commands;
+package src.managers;
+
+import src.commands.Command;
 
 import java.util.HashMap;
 import java.util.Map;

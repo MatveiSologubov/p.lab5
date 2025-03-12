@@ -1,3 +1,5 @@
+package src.models;
+
 import java.time.ZonedDateTime;
 
 public class Ticket {

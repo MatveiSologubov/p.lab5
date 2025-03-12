@@ -1,4 +1,7 @@
-import commands.*;
+package src;
+
+import src.commands.*;
+import src.managers.CommandManager;
 
 import java.util.Scanner;
 
@@ -19,7 +22,7 @@ public class Program {
 	}
 
 	private void start(){
-		System.out.println("Console program started. Type 'help' for commands.");
+		System.out.println("Console program started. Type 'help' for src.commands.");
 
 		while(running){
 			System.out.print("> ");
@@ -29,7 +32,7 @@ public class Program {
 			if(command != null){
 				command.execute();
 			} else if (!input.isEmpty()) {
-				System.out.println("Unknown command. Type 'help' for available commands");
+				System.out.println("Unknown command. Type 'help' for available src.commands");
 			}
 		}
 

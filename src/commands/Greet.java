@@ -1,4 +1,4 @@
-package commands;
+package src.commands;
 
 public class Greet extends Command{
     @Override
