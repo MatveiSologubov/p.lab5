@@ -13,102 +13,101 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class FileManager {
+    private XMLStreamWriter writer;
+    private int indentLevel = 0;
+
     public void save(Set<Ticket> collection, String filePath) throws IOException, XMLStreamException {
         try (BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(filePath))) {
             XMLOutputFactory factory = XMLOutputFactory.newInstance();
-            XMLStreamWriter writer = factory.createXMLStreamWriter(stream, "UTF-8");
+            this.writer = factory.createXMLStreamWriter(stream, "UTF-8");
 
-            int indentLevel = 0;
+            indentLevel = 0;
             final String lineSeparator = System.lineSeparator();
 
             writer.writeStartDocument("UTF-8", "1.0");
             writer.writeCharacters(lineSeparator);
-            writeIndentedStartElement(writer, "tickets", indentLevel++);
+            writeStartElement("tickets");
 
             for (Ticket ticket : collection) {
                 // Start ticket element
-                writeIndentedStartElement(writer, "ticket", indentLevel);
+                writeStartElement("ticket");
                 writer.writeAttribute("id", String.valueOf(ticket.getId()));
-                indentLevel++;
 
                 // Name
-                writeIndentedElement(writer, "name", ticket.getName(), indentLevel);
+                writeElement("name", ticket.getName());
 
                 // Coordinates
-                writeIndentedStartElement(writer, "coordinates", indentLevel);
-                indentLevel++;
-                writeIndentedElement(writer, "x", ticket.getCoordinates().getX().toString(), indentLevel);
-                writeIndentedElement(writer, "y", ticket.getCoordinates().getY().toString(), indentLevel);
-                indentLevel--;
-                writeIndentedEndElement(writer, "coordinates", indentLevel);
+                writeStartElement("coordinates");
+                writeElement("x", ticket.getCoordinates().getX().toString());
+                writeElement("y", ticket.getCoordinates().getY().toString());
+                writeEndElement();
 
                 // Creation Date
-                writeIndentedElement(writer, "creationDate", ticket.getCreationDate().toString(), indentLevel);
+                writeElement("creationDate", ticket.getCreationDate().toString());
 
                 // Price (optional)
                 if (ticket.getPrice() != null) {
-                    writeIndentedElement(writer, "price", ticket.getPrice().toString(), indentLevel);
+                    writeElement("price", ticket.getPrice().toString());
                 }
 
                 // Refundable
-                writeIndentedElement(writer, "refundable", ticket.getRefundable().toString(), indentLevel);
+                writeElement("refundable", ticket.getRefundable().toString());
 
                 // Type (optional)
                 if (ticket.getType() != null) {
-                    writeIndentedElement(writer, "type", ticket.getType().name(), indentLevel);
+                    writeElement("type", ticket.getType().name());
                 }
 
                 // Person (optional)
                 if (ticket.getPerson() != null) {
-                    writeIndentedStartElement(writer, "person", indentLevel);
-                    indentLevel++;
-                    Person p = ticket.getPerson();
-                    if (p.getBirthday() != null) {
-                        writeIndentedElement(writer, "birthday", p.getBirthday().toString(), indentLevel);
+                    writeStartElement("person");
+                    Person person = ticket.getPerson();
+                    if (person.getBirthday() != null) {
+                        writeElement("birthday", person.getBirthday().toString());
                     }
-                    writeIndentedElement(writer, "height", p.getHeight().toString(), indentLevel);
-                    writeIndentedElement(writer, "weight", String.valueOf(p.getWeight()), indentLevel);
-                    if (p.getPassportID() != null && !p.getPassportID().isEmpty()) {
-                        writeIndentedElement(writer, "passportID", p.getPassportID(), indentLevel);
+                    writeElement("height", person.getHeight().toString());
+                    writeElement("weight", String.valueOf(person.getWeight()));
+                    if (person.getPassportID() != null && !person.getPassportID().isEmpty()) {
+                        writeElement("passportID", person.getPassportID());
                     }
-                    indentLevel--;
-                    writeIndentedEndElement(writer, "person", indentLevel);
+                    writeEndElement();
                 }
 
                 // End ticket element
-                indentLevel--;
-                writeIndentedEndElement(writer, "ticket", indentLevel);
+                writeEndElement();
             }
 
             // End tickets element
-            indentLevel--;
-            writeIndentedEndElement(writer, "tickets", indentLevel);
+            writeEndElement();
             writer.writeEndDocument();
             writer.close();
+            this.writer = null;
         }
     }
 
-    private void writeIndentedStartElement(XMLStreamWriter writer, String element, int indentLevel)
+    private void writeStartElement(String element)
             throws XMLStreamException {
-        writeIndentation(writer, indentLevel);
+        writeIndentation();
         writer.writeStartElement(element);
+        indentLevel++;
     }
 
-    private void writeIndentedEndElement(XMLStreamWriter writer, String element, int indentLevel)
+    private void writeEndElement()
             throws XMLStreamException {
-        writeIndentation(writer, indentLevel);
+        indentLevel--;
+        writeIndentation();
         writer.writeEndElement();
     }
 
-    private void writeIndentedElement(XMLStreamWriter writer, String name, String value, int indentLevel)
+    private void writeElement(String name, String value)
             throws XMLStreamException {
-        writeIndentation(writer, indentLevel);
+        writeIndentation();
         writer.writeStartElement(name);
         writer.writeCharacters(value);
         writer.writeEndElement();
     }
 
-    private void writeIndentation(XMLStreamWriter writer, int indentLevel) throws XMLStreamException {
+    private void writeIndentation() throws XMLStreamException {
         String indent = "  ".repeat(indentLevel); // 2 spaces per indent
         writer.writeCharacters(System.lineSeparator() + indent);
     }
@@ -130,12 +129,12 @@ public class FileManager {
                 switch (event) {
                     case XMLStreamConstants.START_ELEMENT:
                         currentElement = reader.getLocalName();
-                        if ("ticket".equals(currentElement)) {
+                        if (currentElement.equals("ticket")) {
                             currentTicket = new Ticket();
                             currentTicket.setId(Long.parseLong(reader.getAttributeValue(null, "id")));
-                        } else if ("coordinates".equals(currentElement)) {
+                        } else if (currentElement.equals("coordinates")) {
                             currentCoords = new Coordinates();
-                        } else if ("person".equals(currentElement)) {
+                        } else if (currentElement.equals("person")) {
                             currentPerson = new Person();
                         }
                         break;
