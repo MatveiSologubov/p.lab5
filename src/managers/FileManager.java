@@ -20,69 +20,73 @@ public class FileManager {
         try (BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(filePath))) {
             XMLOutputFactory factory = XMLOutputFactory.newInstance();
             this.writer = factory.createXMLStreamWriter(stream, "UTF-8");
+            writeXmlContent(collection);
+            writer.close();
+        } finally {
+            this.writer = null;
+        }
+    }
 
-            indentLevel = 0;
-            final String lineSeparator = System.lineSeparator();
+    private void writeXmlContent(Set<Ticket> collection) throws XMLStreamException {
+        indentLevel = 0;
+        final String lineSeparator = System.lineSeparator();
 
-            writer.writeStartDocument("UTF-8", "1.0");
-            writer.writeCharacters(lineSeparator);
-            writeStartElement("tickets");
+        writer.writeStartDocument("UTF-8", "1.0");
+        writer.writeCharacters(lineSeparator);
+        writeStartElement("tickets");
 
-            for (Ticket ticket : collection) {
-                // Start ticket element
-                writeStartElement("ticket");
-                writer.writeAttribute("id", String.valueOf(ticket.getId()));
+        for (Ticket ticket : collection) {
+            // Start ticket element
+            writeStartElement("ticket");
+            writer.writeAttribute("id", String.valueOf(ticket.getId()));
 
-                // Name
-                writeElement("name", ticket.getName());
+            // Name
+            writeElement("name", ticket.getName());
 
-                // Coordinates
-                writeStartElement("coordinates");
-                writeElement("x", ticket.getCoordinates().getX().toString());
-                writeElement("y", ticket.getCoordinates().getY().toString());
-                writeEndElement();
+            // Coordinates
+            writeStartElement("coordinates");
+            writeElement("x", ticket.getCoordinates().getX().toString());
+            writeElement("y", ticket.getCoordinates().getY().toString());
+            writeEndElement();
 
-                // Creation Date
-                writeElement("creationDate", ticket.getCreationDate().toString());
+            // Creation Date
+            writeElement("creationDate", ticket.getCreationDate().toString());
 
-                // Price (optional)
-                if (ticket.getPrice() != null) {
-                    writeElement("price", ticket.getPrice().toString());
+            // Price (optional)
+            if (ticket.getPrice() != null) {
+                writeElement("price", ticket.getPrice().toString());
+            }
+
+            // Refundable
+            writeElement("refundable", ticket.getRefundable().toString());
+
+            // Type (optional)
+            if (ticket.getType() != null) {
+                writeElement("type", ticket.getType().name());
+            }
+
+            // Person (optional)
+            if (ticket.getPerson() != null) {
+                writeStartElement("person");
+                Person person = ticket.getPerson();
+                if (person.getBirthday() != null) {
+                    writeElement("birthday", person.getBirthday().toString());
                 }
-
-                // Refundable
-                writeElement("refundable", ticket.getRefundable().toString());
-
-                // Type (optional)
-                if (ticket.getType() != null) {
-                    writeElement("type", ticket.getType().name());
+                writeElement("height", person.getHeight().toString());
+                writeElement("weight", String.valueOf(person.getWeight()));
+                if (person.getPassportID() != null && !person.getPassportID().isEmpty()) {
+                    writeElement("passportID", person.getPassportID());
                 }
-
-                // Person (optional)
-                if (ticket.getPerson() != null) {
-                    writeStartElement("person");
-                    Person person = ticket.getPerson();
-                    if (person.getBirthday() != null) {
-                        writeElement("birthday", person.getBirthday().toString());
-                    }
-                    writeElement("height", person.getHeight().toString());
-                    writeElement("weight", String.valueOf(person.getWeight()));
-                    if (person.getPassportID() != null && !person.getPassportID().isEmpty()) {
-                        writeElement("passportID", person.getPassportID());
-                    }
-                    writeEndElement();
-                }
-
-                // End ticket element
                 writeEndElement();
             }
 
-            // End tickets element
+            // End ticket element
             writeEndElement();
-            writer.writeEndDocument();
-            writer.close();
-            this.writer = null;
         }
+
+        // End tickets element
+        writeEndElement();
+        writer.writeEndDocument();
     }
 
     private void writeStartElement(String element)
