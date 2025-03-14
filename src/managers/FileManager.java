@@ -117,91 +117,86 @@ public class FileManager {
     }
 
     public Set<Ticket> load(String filePath) throws IOException, XMLStreamException {
-        Set<Ticket> collection = new HashSet<>();
         try (BufferedInputStream stream = new BufferedInputStream(new FileInputStream(filePath))) {
             XMLInputFactory factory = XMLInputFactory.newInstance();
             XMLStreamReader reader = factory.createXMLStreamReader(stream);
+            return new XmlParser().parse(reader);
+        }
+    }
 
-            Ticket currentTicket = null;
-            Coordinates currentCoords = null;
-            Person currentPerson = null;
-            String currentElement = "";
+    private static class XmlParser {
+        private Ticket currentTicket;
+        private Coordinates currentCoordinates;
+        private Person currentPerson;
+        private String currentElement;
+        private final Set<Ticket> collection = new HashSet<>();
 
+        public Set<Ticket> parse(XMLStreamReader reader) throws XMLStreamException {
             while (reader.hasNext()) {
                 int event = reader.next();
-
                 switch (event) {
-                    case XMLStreamConstants.START_ELEMENT:
-                        currentElement = reader.getLocalName();
-                        if (currentElement.equals("ticket")) {
-                            currentTicket = new Ticket();
-                            currentTicket.setId(Long.parseLong(reader.getAttributeValue(null, "id")));
-                        } else if (currentElement.equals("coordinates")) {
-                            currentCoords = new Coordinates();
-                        } else if (currentElement.equals("person")) {
-                            currentPerson = new Person();
-                        }
-                        break;
-                    case XMLStreamConstants.CHARACTERS:
-                        String text = reader.getText().trim();
-                        if (!text.isEmpty()) {
-                            if (currentTicket != null) {
-                                switch (currentElement) {
-                                    case "name":
-                                        currentTicket.setName(text);
-                                        break;
-                                    case "creationDate":
-                                        currentTicket.setCreationDate(ZonedDateTime.parse(text));
-                                        break;
-                                    case "price":
-                                        currentTicket.setPrice(text.isEmpty() ? null : Float.parseFloat(text));
-                                        break;
-                                    case "refundable":
-                                        currentTicket.setRefundable(Boolean.parseBoolean(text));
-                                        break;
-                                    case "type":
-                                        currentTicket.setType(text.isEmpty() ? null : TicketType.valueOf(text));
-                                        break;
-                                    case "x":
-                                        currentCoords.setX(Integer.parseInt(text));
-                                        break;
-                                    case "y":
-                                        currentCoords.setY(Float.parseFloat(text));
-                                        break;
-                                    case "birthday":
-                                        currentPerson.setBirthday(LocalDateTime.parse(text));
-                                        break;
-                                    case "height":
-                                        currentPerson.setHeight(Integer.parseInt(text));
-                                        break;
-                                    case "weight":
-                                        currentPerson.setWeight(Float.parseFloat(text));
-                                        break;
-                                    case "passportID":
-                                        currentPerson.setPassportID(text.isEmpty() ? null : text);
-                                        break;
-                                }
-                            }
-                        }
-                        break;
-                    case XMLStreamConstants.END_ELEMENT:
-                        String elementName = reader.getLocalName();
-                        if ("ticket".equals(elementName)) {
-                            collection.add(currentTicket);
-                            currentTicket = null;
-                        } else if ("coordinates".equals(elementName)) {
-                            currentTicket.setCoordinates(currentCoords);
-                            currentPerson = null;
-                        } else if ("person".equals(elementName)) {
-                            currentTicket.setPerson(currentPerson);
-                            currentPerson = null;
-                        }
-                        break;
+                    case XMLStreamConstants.START_ELEMENT -> handleStartElement(reader);
+                    case XMLStreamConstants.CHARACTERS -> handleCharacters(reader);
+                    case XMLStreamConstants.END_ELEMENT -> handleEndElement(reader);
                 }
             }
-            reader.close();
+            return collection;
         }
 
-        return collection;
+        private void handleStartElement(XMLStreamReader reader) {
+            currentElement = reader.getLocalName();
+            switch (currentElement) {
+                case "ticket" -> initNewTicket(reader);
+                case "coordinates" -> currentCoordinates = new Coordinates();
+                case "person" -> currentPerson = new Person();
+            }
+        }
+
+        private void handleCharacters(XMLStreamReader reader) {
+            String text = reader.getText().trim();
+            if (text.isEmpty() || currentTicket == null) return;
+
+            switch (currentElement) {
+                case "name" -> currentTicket.setName(text);
+                case "creationDate" -> currentTicket.setCreationDate(ZonedDateTime.parse(text));
+                case "price" -> currentTicket.setPrice(Float.parseFloat(text));
+                case "refundable" -> currentTicket.setRefundable(Boolean.parseBoolean(text));
+                case "type" -> currentTicket.setType(TicketType.valueOf(text));
+                case "x" -> currentCoordinates.setX(Integer.parseInt(text));
+                case "y" -> currentCoordinates.setY(Float.parseFloat(text));
+                case "birthday" -> currentPerson.setBirthday(LocalDateTime.parse(text));
+                case "height" -> currentPerson.setHeight(Integer.parseInt(text));
+                case "weight" -> currentPerson.setWeight(Float.parseFloat(text));
+                case "passportID" -> currentPerson.setPassportID(text);
+            }
+        }
+
+        private void handleEndElement(XMLStreamReader reader) {
+            switch (reader.getLocalName()) {
+                case "ticket" -> completeTicket();
+                case "coordinates" -> attachCoordinates();
+                case "person" -> attachPerson();
+            }
+        }
+
+        private void initNewTicket(XMLStreamReader reader) {
+            currentTicket = new Ticket();
+            currentTicket.setId(Long.parseLong(reader.getAttributeValue(null, "id")));
+        }
+
+        private void completeTicket() {
+            collection.add(currentTicket);
+            currentTicket = null;
+        }
+
+        private void attachCoordinates() {
+            currentTicket.setCoordinates(currentCoordinates);
+            currentCoordinates = null;
+        }
+
+        private void attachPerson() {
+            currentTicket.setPerson(currentPerson);
+            currentPerson = null;
+        }
     }
 }
