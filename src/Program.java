@@ -4,15 +4,9 @@ import src.commands.*;
 import src.managers.CollectionManager;
 import src.managers.CommandManager;
 import src.managers.FileManager;
-import src.models.Coordinates;
-import src.models.Person;
-import src.models.Ticket;
-import src.models.TicketType;
 
 import javax.xml.stream.XMLStreamException;
 import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.ZonedDateTime;
 import java.util.Scanner;
 
 public class Program {
@@ -26,7 +20,7 @@ public class Program {
 	public Program(){
 		commandManager.addCommand("help", new Help(commandManager));
 		commandManager.addCommand("exit", new Exit(this::stop));
-		commandManager.addCommand("greet", new Greet());
+		commandManager.addCommand("info", new Show(collectionManager));
 	}
 
 	private void stop() {
@@ -35,22 +29,10 @@ public class Program {
 
 	private void start(){
 		try {
-			// Save
-			//collectionManager.saveToFile("tickets.xml");
-
-			// Load
 			collectionManager.setCollection(fileManager.load("tickets.xml"));
-			collectionManager.showInfo();
-
-			Person person = new Person(LocalDateTime.now(), 12, 12.3F, "ABCD");
-			Ticket ticket = new Ticket("Test", new Coordinates(12, 12.3F), ZonedDateTime.now(), 12.3F, "damn", true, TicketType.USUAL, person);
-
-			collectionManager.add(ticket);
-			fileManager.save(collectionManager.getCollection(),"tickets.xml");
 		} catch (IOException | XMLStreamException e) {
 			throw new RuntimeException(e);
 		}
-
 
 		System.out.println("Console program started. Type 'help' for src.commands.");
 
