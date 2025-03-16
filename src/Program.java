@@ -20,7 +20,8 @@ public class Program {
 	public Program(){
 		commandManager.addCommand("help", new Help(commandManager));
 		commandManager.addCommand("exit", new Exit(this::stop));
-		commandManager.addCommand("info", new Show(collectionManager));
+		commandManager.addCommand("info", new Info(collectionManager, commandManager));
+		commandManager.addCommand("show", new Show(collectionManager));
 	}
 
 	private void stop() {
