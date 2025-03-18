@@ -5,10 +5,11 @@ import src.models.Ticket;
 
 import java.util.Set;
 
-public class Show extends Command{
+public class Show extends Command {
     private final CollectionManager collectionManager;
-    public Show(CollectionManager manger){
-       this.collectionManager = manger;
+
+    public Show(CollectionManager manger) {
+        this.collectionManager = manger;
     }
 
     /**
@@ -17,7 +18,7 @@ public class Show extends Command{
     @Override
     public void execute() {
         Set<Ticket> tickets = collectionManager.getCollection();
-        for(Ticket ticket : tickets){
+        for (Ticket ticket : tickets) {
             System.out.println(ticket);
         }
     }

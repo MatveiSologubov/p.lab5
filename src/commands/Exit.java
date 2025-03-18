@@ -1,6 +1,6 @@
 package src.commands;
 
-public class Exit extends Command{
+public class Exit extends Command {
     private final Runnable exitHandler;
 
     public Exit(Runnable exitHandler) {

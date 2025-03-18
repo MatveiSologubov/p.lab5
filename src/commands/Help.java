@@ -5,7 +5,7 @@ import src.managers.CommandManager;
 public class Help extends Command {
     private final CommandManager commandManager;
 
-    public Help(CommandManager commandManager){
+    public Help(CommandManager commandManager) {
         this.commandManager = commandManager;
     }
 

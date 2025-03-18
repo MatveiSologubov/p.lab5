@@ -3,49 +3,50 @@ package src.models;
 import java.time.LocalDateTime;
 
 public class Person {
-	private LocalDateTime birthday; // Поле может быть null
-	private Integer height; // Поле не может быть null, Значение поля должно быть больше 0
-	private float weight; // Значение поля должно быть больше 0
-	private String passportID; // Строка не может быть пустой, Поле может быть null
+    private LocalDateTime birthday; // Поле может быть null
+    private Integer height; // Поле не может быть null, Значение поля должно быть больше 0
+    private float weight; // Значение поля должно быть больше 0
+    private String passportID; // Строка не может быть пустой, Поле может быть null
 
-	public Person(){}
+    public Person() {
+    }
 
-	public Person(LocalDateTime birthday, Integer height, float weight, String passportID) {
-		this.birthday = birthday;
-		this.height = height;
-		this.weight = weight;
-		this.passportID = passportID;
-	}
+    public Person(LocalDateTime birthday, Integer height, float weight, String passportID) {
+        this.birthday = birthday;
+        this.height = height;
+        this.weight = weight;
+        this.passportID = passportID;
+    }
 
-	public LocalDateTime getBirthday() {
-		return this.birthday;
-	}
+    public LocalDateTime getBirthday() {
+        return this.birthday;
+    }
 
-	public void setBirthday(LocalDateTime birthday) {
-		this.birthday = birthday;
-	}
+    public void setBirthday(LocalDateTime birthday) {
+        this.birthday = birthday;
+    }
 
-	public Integer getHeight() {
-		return this.height;
-	}
+    public Integer getHeight() {
+        return this.height;
+    }
 
-	public void setHeight(Integer height) {
-		this.height = height;
-	}
+    public void setHeight(Integer height) {
+        this.height = height;
+    }
 
-	public float getWeight() {
-		return this.weight;
-	}
+    public float getWeight() {
+        return this.weight;
+    }
 
-	public void setWeight(float weight) {
-		this.weight = weight;
-	}
+    public void setWeight(float weight) {
+        this.weight = weight;
+    }
 
-	public String getPassportID() {
-		return this.passportID;
-	}
+    public String getPassportID() {
+        return this.passportID;
+    }
 
-	public void setPassportID(String passportID) {
-		this.passportID = passportID;
-	}
+    public void setPassportID(String passportID) {
+        this.passportID = passportID;
+    }
 }

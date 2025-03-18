@@ -3,43 +3,44 @@ package src.models;
 import java.time.ZonedDateTime;
 
 public class Ticket {
-	private static long idCounter = 1; // Значение поля должно быть больше 0, Значение этого поля должно быть
-                            // уникальным, Значение этого поля должно генерироваться автоматически
+    private static long idCounter = 1; // Значение поля должно быть больше 0, Значение этого поля должно быть
+    // уникальным, Значение этого поля должно генерироваться автоматически
     private long id;
-	private String name; // Поле не может быть null, Строка не может быть пустой
-	private Coordinates coordinates; // Поле не может быть null
-	private java.time.ZonedDateTime creationDate; // Поле не может быть null, Значение этого поля должно генерироваться
-													// автоматически
-	private Float price; // Поле может быть null, Значение поля должно быть больше 0
-	private String comment; // Длина строки не должна быть больше 855, Поле может быть null
-	private Boolean refundable; // Поле не может быть null
-	private TicketType type; // Поле может быть null
-	private Person person; // Поле может быть null
+    private String name; // Поле не может быть null, Строка не может быть пустой
+    private Coordinates coordinates; // Поле не может быть null
+    private java.time.ZonedDateTime creationDate; // Поле не может быть null, Значение этого поля должно генерироваться
+    // автоматически
+    private Float price; // Поле может быть null, Значение поля должно быть больше 0
+    private String comment; // Длина строки не должна быть больше 855, Поле может быть null
+    private Boolean refundable; // Поле не может быть null
+    private TicketType type; // Поле может быть null
+    private Person person; // Поле может быть null
 
-	public Ticket(){}
+    public Ticket() {
+    }
 
-	public Ticket(String name, Coordinates coordinates, ZonedDateTime creationDate, Float price,
-			String comment, Boolean refundable, TicketType type, Person person) {
+    public Ticket(String name, Coordinates coordinates, ZonedDateTime creationDate, Float price,
+                  String comment, Boolean refundable, TicketType type, Person person) {
         this.id = idCounter++;
-		this.name = name;
-		this.coordinates = coordinates;
-		this.creationDate = creationDate;
-		this.price = price;
-		this.comment = comment;
-		this.refundable = refundable;
-		this.type = type;
-		this.person = person;
-	}
-	
-	public long getId(){
-		return id;
-	}
+        this.name = name;
+        this.coordinates = coordinates;
+        this.creationDate = creationDate;
+        this.price = price;
+        this.comment = comment;
+        this.refundable = refundable;
+        this.type = type;
+        this.person = person;
+    }
 
-	public void setId(long id) {
-		this.id = id;
-	}
+    public long getId() {
+        return id;
+    }
 
-	public String getName() {
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getName() {
         return name;
     }
 

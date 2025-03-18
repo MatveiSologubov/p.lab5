@@ -1,8 +1,8 @@
 package src.models;
 
 public enum TicketType {
-	VIP,
-	USUAL,
-	BUDGETARY,
-	CHEAP;
+    VIP,
+    USUAL,
+    BUDGETARY,
+    CHEAP
 }

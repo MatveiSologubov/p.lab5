@@ -3,11 +3,11 @@ package src.commands;
 import src.managers.CollectionManager;
 import src.managers.CommandManager;
 
-public class Info extends Command{
-    CollectionManager collectionManager;
-    CommandManager commandManager;
+public class Info extends Command {
+    final CollectionManager collectionManager;
+    final CommandManager commandManager;
 
-    public Info(CollectionManager collectionManager, CommandManager commandManager){
+    public Info(CollectionManager collectionManager, CommandManager commandManager) {
         this.collectionManager = collectionManager;
         this.commandManager = commandManager;
     }

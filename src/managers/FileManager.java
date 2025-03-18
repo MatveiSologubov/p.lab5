@@ -16,12 +16,14 @@ public class FileManager {
     private XMLStreamWriter writer;
     private int indentLevel = 0;
 
-    public void save(Set<Ticket> collection, String filePath) throws IOException, XMLStreamException {
+    public void save(Set<Ticket> collection, String filePath) {
         try (BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(filePath))) {
             XMLOutputFactory factory = XMLOutputFactory.newInstance();
             this.writer = factory.createXMLStreamWriter(stream, "UTF-8");
             writeXmlContent(collection);
             writer.close();
+        } catch (XMLStreamException | IOException e) {
+            System.out.println("Error saving file: " + e.getMessage());
         } finally {
             this.writer = null;
         }
@@ -116,11 +118,14 @@ public class FileManager {
         writer.writeCharacters(System.lineSeparator() + indent);
     }
 
-    public Set<Ticket> load(String filePath) throws IOException, XMLStreamException {
+    public Set<Ticket> load(String filePath) {
         try (BufferedInputStream stream = new BufferedInputStream(new FileInputStream(filePath))) {
             XMLInputFactory factory = XMLInputFactory.newInstance();
             XMLStreamReader reader = factory.createXMLStreamReader(stream);
             return new XmlParser().parse(reader);
+        } catch (XMLStreamException | IOException e) {
+            System.out.println("Error loading file: " + e.getMessage());
+            return new HashSet<>();
         }
     }
 
