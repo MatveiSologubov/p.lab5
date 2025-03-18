@@ -108,6 +108,7 @@ public class Ticket {
     public String toString() {
         return "Ticket{" +
                 "name='" + name + '\'' +
+                "id='" + id + '\'' +
                 ", coordinates=" + coordinates +
                 ", creationDate=" + creationDate +
                 ", price=" + price +

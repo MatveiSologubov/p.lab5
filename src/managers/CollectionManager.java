@@ -8,13 +8,20 @@ import src.models.*;
 
 public class CollectionManager {
     private Set<Ticket> collection = new HashSet<>();
-    private LocalDateTime initTime;
+    private final Set<Long> usedIds = new HashSet<>();
+    private final LocalDateTime initTime;
 
     public CollectionManager() {
         this.initTime = LocalDateTime.now();
     }
 
     public void add(Ticket ticket) {
+        final long id = ticket.getId();
+        if (usedIds.contains(id)) {
+            System.out.println("Id is already in use");
+            return;
+        }
+        usedIds.add(id);
         collection.add(ticket);
     }
 
