@@ -25,6 +25,10 @@ public class CollectionManager {
         collection.add(ticket);
     }
 
+    public void clearCollection(){
+        collection.clear();
+    }
+
     public void setCollection(Set<Ticket> collection) {
         this.collection = collection;
     }
