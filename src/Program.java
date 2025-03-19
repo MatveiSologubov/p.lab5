@@ -21,6 +21,7 @@ public class Program {
         commandManager.addCommand("info", new Info(collectionManager, commandManager));
         commandManager.addCommand("show", new Show(collectionManager));
         commandManager.addCommand("clear", new Clear(collectionManager));
+        commandManager.addCommand("save", new Save(collectionManager, fileManager, "tickets.xml"));
     }
 
     private void stop() {
