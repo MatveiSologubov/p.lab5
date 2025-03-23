@@ -4,7 +4,7 @@ public abstract class Command {
     /**
      * execute command
      */
-    public abstract void execute();
+    public abstract void execute(String[] args);
 
     /**
      * @return Help message

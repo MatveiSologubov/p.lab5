@@ -5,6 +5,7 @@ import src.managers.CollectionManager;
 import src.managers.CommandManager;
 import src.managers.FileManager;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Program {
@@ -37,10 +38,15 @@ public class Program {
             System.out.print("> ");
             String input = scanner.nextLine().trim();
 
-            Command command = commandManager.getCommand(input);
+            if (input.isEmpty()) continue;
+
+            String[] args = input.split("\\s+");
+
+            Command command = commandManager.getCommand(args[0]);
+            args = Arrays.copyOfRange(args, 1, args.length);
             if (command != null) {
-                command.execute();
-            } else if (!input.isEmpty()) {
+                command.execute(args);
+            } else {
                 System.out.println("Unknown command. Type 'help' for available src.commands");
             }
         }

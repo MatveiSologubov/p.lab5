@@ -16,7 +16,12 @@ public class Info extends Command {
      * executes command
      */
     @Override
-    public void execute() {
+    public void execute(String[] args) {
+        if (args.length != 0) {
+            System.out.println("Wrong number of arguments");
+            return;
+        }
+
         System.out.println("Collection Info:");
         System.out.println(" Type: " + collectionManager.getCollectionType());
         System.out.println(" Collection size: " + collectionManager.getCollectionSize());

@@ -8,7 +8,12 @@ public class Exit extends Command {
     }
 
     @Override
-    public void execute() {
+    public void execute(String[] args) {
+        if (args.length != 0) {
+            System.out.println("Wrong number of arguments");
+            return;
+        }
+
         System.out.println("Exiting program...");
         exitHandler.run();
     }

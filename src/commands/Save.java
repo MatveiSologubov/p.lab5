@@ -18,7 +18,12 @@ public class Save extends Command {
      * execute command
      */
     @Override
-    public void execute() {
+    public void execute(String[] args) {
+        if (args.length != 0) {
+            System.out.println("Wrong number of arguments");
+            return;
+        }
+
         fileManager.save(collectionManager.getCollection(), filePath);
     }
 

@@ -16,7 +16,12 @@ public class Show extends Command {
      * executes command
      */
     @Override
-    public void execute() {
+    public void execute(String[] args) {
+        if (args.length != 0) {
+            System.out.println("Wrong number of arguments");
+            return;
+        }
+
         Set<Ticket> tickets = collectionManager.getCollection();
         for (Ticket ticket : tickets) {
             System.out.println(ticket);

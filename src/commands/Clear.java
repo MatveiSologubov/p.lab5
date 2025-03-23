@@ -3,17 +3,22 @@ package src.commands;
 import src.managers.CollectionManager;
 
 public class Clear extends Command {
-   private final CollectionManager collectionManager;
+    private final CollectionManager collectionManager;
 
-   public Clear(CollectionManager collectionManager) {
-       this.collectionManager = collectionManager;
-   }
+    public Clear(CollectionManager collectionManager) {
+        this.collectionManager = collectionManager;
+    }
 
     /**
      * execute command
      */
     @Override
-    public void execute() {
+    public void execute(String[] args) {
+        if (args.length != 0) {
+            System.out.println("Wrong number of arguments");
+            return;
+        }
+
         collectionManager.clearCollection();
     }
 
