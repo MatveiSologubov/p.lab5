@@ -18,7 +18,7 @@ public class Help extends Command {
 
         System.out.println("Available src.commands:");
         commandManager.getAllCommands().forEach((name, cmd) ->
-                System.out.printf("  %-10s%s%n", name, cmd.getHelp()));
+                System.out.printf("  %-14s%s%n", name, cmd.getHelp()));
     }
 
     @Override

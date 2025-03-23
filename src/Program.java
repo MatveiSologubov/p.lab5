@@ -21,6 +21,7 @@ public class Program {
         commandManager.addCommand("exit", new Exit(this::stop));
         commandManager.addCommand("info", new Info(collectionManager, commandManager));
         commandManager.addCommand("show", new Show(collectionManager));
+        commandManager.addCommand("remove_by_id", new RemoveById(collectionManager));
         commandManager.addCommand("clear", new Clear(collectionManager));
         commandManager.addCommand("save", new Save(collectionManager, fileManager, "tickets.xml"));
     }
