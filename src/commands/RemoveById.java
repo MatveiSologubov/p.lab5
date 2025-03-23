@@ -4,7 +4,7 @@ import src.managers.CollectionManager;
 import src.models.Ticket;
 
 public class RemoveById extends Command {
-    CollectionManager collectionManager;
+    final CollectionManager collectionManager;
 
     public RemoveById(CollectionManager collectionManager) {
         this.collectionManager = collectionManager;
