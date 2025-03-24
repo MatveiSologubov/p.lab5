@@ -33,7 +33,7 @@ public class Program {
     private void start() {
         collectionManager.setCollection(fileManager.load("tickets.xml"));
 
-        System.out.println("Console program started. Type 'help' for src.commands.");
+        System.out.println("Console program started. Type 'help' for commands.");
 
         while (running) {
             System.out.print("> ");
@@ -48,7 +48,7 @@ public class Program {
             if (command != null) {
                 command.execute(args);
             } else {
-                System.out.println("Unknown command. Type 'help' for available src.commands");
+                System.out.println("Unknown command. Type 'help' for available commands");
             }
         }
 
