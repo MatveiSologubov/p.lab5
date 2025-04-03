@@ -1,5 +1,8 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="Main" type="Application" factoryName="Application">
+    <envs>
+      <env name="COLLECTION_FILE" value="tickets.xml" />
+    </envs>
     <option name="MAIN_CLASS_NAME" value="src.Program" />
     <module name="p.lab5" />
     <method v="2">

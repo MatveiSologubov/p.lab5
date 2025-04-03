@@ -1,15 +1,15 @@
 package src.managers;
 
+import src.models.Ticket;
+
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
-import src.models.*;
-
 public class CollectionManager {
-    private Set<Ticket> collection = new HashSet<>();
     private final Set<Long> usedIds = new HashSet<>();
     private final LocalDateTime initTime;
+    private Set<Ticket> collection = new HashSet<>();
 
     public CollectionManager() {
         this.initTime = LocalDateTime.now();
@@ -25,12 +25,8 @@ public class CollectionManager {
         collection.add(ticket);
     }
 
-    public void clearCollection(){
+    public void clearCollection() {
         collection.clear();
-    }
-
-    public void setCollection(Set<Ticket> collection) {
-        this.collection = collection;
     }
 
     public int getCollectionSize() {
@@ -39,6 +35,10 @@ public class CollectionManager {
 
     public Set<Ticket> getCollection() {
         return this.collection;
+    }
+
+    public void setCollection(Set<Ticket> collection) {
+        this.collection = collection;
     }
 
     public LocalDateTime getInitTime() {

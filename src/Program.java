@@ -14,16 +14,23 @@ public class Program {
     private final FileManager fileManager = new FileManager();
     private final Scanner scanner = new Scanner(System.in);
 
+    private String filePath;
+
     private boolean running = true;
 
     public Program() {
         commandManager.addCommand("help", new Help(commandManager));
-        commandManager.addCommand("exit", new Exit(this::stop));
         commandManager.addCommand("info", new Info(collectionManager, commandManager));
         commandManager.addCommand("show", new Show(collectionManager));
         commandManager.addCommand("remove_by_id", new RemoveById(collectionManager));
         commandManager.addCommand("clear", new Clear(collectionManager));
-        commandManager.addCommand("save", new Save(collectionManager, fileManager, "tickets.xml"));
+        commandManager.addCommand("save", new Save(collectionManager, fileManager, filePath));
+        commandManager.addCommand("exit", new Exit(this::stop));
+        commandManager.addCommand("min_by_creation_date", new MinByCreationDate(collectionManager));
+    }
+
+    public static void main(String[] args) {
+        new Program().start();
     }
 
     private void stop() {
@@ -31,7 +38,8 @@ public class Program {
     }
 
     private void start() {
-        collectionManager.setCollection(fileManager.load("tickets.xml"));
+        filePath = System.getenv("COLLECTION_FILE");
+        collectionManager.setCollection(fileManager.load(filePath));
 
         System.out.println("Console program started. Type 'help' for commands.");
 
@@ -53,9 +61,5 @@ public class Program {
         }
 
         scanner.close();
-    }
-
-    public static void main(String[] args) {
-        new Program().start();
     }
 }

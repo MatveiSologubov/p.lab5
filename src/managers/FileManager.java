@@ -130,11 +130,11 @@ public class FileManager {
     }
 
     private static class XmlParser {
+        private final Set<Ticket> collection = new HashSet<>();
         private Ticket currentTicket;
         private Coordinates currentCoordinates;
         private Person currentPerson;
         private String currentElement;
-        private final Set<Ticket> collection = new HashSet<>();
 
         public Set<Ticket> parse(XMLStreamReader reader) throws XMLStreamException {
             while (reader.hasNext()) {
