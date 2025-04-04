@@ -2,7 +2,7 @@ package src.models;
 
 import java.time.ZonedDateTime;
 
-public class Ticket {
+public class Ticket implements Comparable<Ticket> {
     private static long idCounter = 1; // Значение поля должно быть больше 0, Значение этого поля должно быть
     // уникальным, Значение этого поля должно генерироваться автоматически
     private long id;
@@ -113,6 +113,14 @@ public class Ticket {
 
     public void setPerson(Person person) {
         this.person = person;
+    }
+
+    @Override
+    public int compareTo(Ticket other) {
+        if (this.price == null && other.price == null) return 0;
+        if (this.price == null) return -1;
+        if (other.price == null) return 1;
+        return Float.compare(this.price, other.price);
     }
 
     @Override

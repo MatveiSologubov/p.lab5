@@ -28,6 +28,7 @@ public class Program {
         commandManager.addCommand("clear", new Clear(collectionManager));
         commandManager.addCommand("save", new Save(collectionManager, fileManager, filePath));
         commandManager.addCommand("exit", new Exit(this::stop));
+        commandManager.addCommand("add_if_max", new AddIfMax(collectionManager, scanner));
         commandManager.addCommand("min_by_creation_date", new MinByCreationDate(collectionManager));
     }
 
