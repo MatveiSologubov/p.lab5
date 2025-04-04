@@ -17,6 +17,10 @@ public class FileManager {
     private int indentLevel = 0;
 
     public void save(Set<Ticket> collection, String filePath) {
+        if (filePath == null || filePath.isEmpty()) {
+            System.out.println("Empty file path");
+            return;
+        }
         try (BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(filePath))) {
             XMLOutputFactory factory = XMLOutputFactory.newInstance();
             this.writer = factory.createXMLStreamWriter(stream, "UTF-8");
