@@ -42,6 +42,6 @@ public class RemoveGreater extends Command {
      */
     @Override
     public String getHelp() {
-        return "";
+        return "Removes all tickets bigger than specified element";
     }
 }
