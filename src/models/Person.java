@@ -49,4 +49,14 @@ public class Person {
     public void setPassportID(String passportID) {
         this.passportID = passportID;
     }
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "birthday=" + birthday +
+                ", height=" + height +
+                ", weight=" + weight +
+                ", passportID='" + passportID + '\'' +
+                '}';
+    }
 }

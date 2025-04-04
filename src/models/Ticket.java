@@ -19,12 +19,12 @@ public class Ticket {
     public Ticket() {
     }
 
-    public Ticket(String name, Coordinates coordinates, ZonedDateTime creationDate, Float price,
+    public Ticket(String name, Coordinates coordinates, Float price,
                   String comment, Boolean refundable, TicketType type, Person person) {
         this.id = idCounter++;
         this.name = name;
         this.coordinates = coordinates;
-        this.creationDate = creationDate;
+        this.creationDate = ZonedDateTime.now();
         this.price = price;
         this.comment = comment;
         this.refundable = refundable;
