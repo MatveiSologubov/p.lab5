@@ -30,6 +30,7 @@ public class Program {
         commandManager.addCommand("remove_by_id", new RemoveById(collectionManager));
         commandManager.addCommand("clear", new Clear(collectionManager));
         commandManager.addCommand("save", new Save(collectionManager, fileManager, filePath));
+        commandManager.addCommand("execute_script", new ExecuteScript(commandManager, scannerManager));
         commandManager.addCommand("exit", new Exit(this::stop));
         commandManager.addCommand("add_if_max", new AddIfMax(collectionManager, scannerManager));
         commandManager.addCommand("add_if_min", new AddIfMin(collectionManager, scannerManager));
