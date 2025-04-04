@@ -1,18 +1,17 @@
 package src.commands;
 
 import src.managers.CollectionManager;
+import src.managers.ScannerManager;
 import src.models.Ticket;
 import src.models.builders.TicketBuilder;
 
-import java.util.Scanner;
-
 public class Update extends Command {
     CollectionManager collectionManager;
-    Scanner scanner;
+    ScannerManager scannerManager;
 
-    public Update(CollectionManager collectionManager, Scanner scanner) {
+    public Update(CollectionManager collectionManager, ScannerManager scannerManager) {
         this.collectionManager = collectionManager;
-        this.scanner = scanner;
+        this.scannerManager = scannerManager;
     }
 
     /**
@@ -43,7 +42,7 @@ public class Update extends Command {
         for (Ticket ticket : collectionManager.getCollection()) {
             if (ticket.getId() == id) {
                 ticketExists = true;
-                TicketBuilder ticketBuilder = new TicketBuilder(scanner);
+                TicketBuilder ticketBuilder = new TicketBuilder(scannerManager.getScanner());
                 ticket.update(ticketBuilder.buildTicket());
                 System.out.println("Ticket updated");
                 break;

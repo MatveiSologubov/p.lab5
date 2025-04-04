@@ -1,18 +1,17 @@
 package src.commands;
 
 import src.managers.CollectionManager;
+import src.managers.ScannerManager;
 import src.models.Ticket;
 import src.models.builders.TicketBuilder;
 
-import java.util.Scanner;
-
 public class Add extends Command {
     private final CollectionManager collectionManager;
-    private final Scanner scanner;
+    private final ScannerManager scannerManager;
 
-    public Add(CollectionManager collectionManager, Scanner scaner) {
+    public Add(CollectionManager collectionManager, ScannerManager scannerManager) {
         this.collectionManager = collectionManager;
-        this.scanner = scaner;
+        this.scannerManager = scannerManager;
     }
 
     /**
@@ -23,7 +22,7 @@ public class Add extends Command {
     @Override
     public void execute(String[] args) {
         System.out.println("Starting Ticket Builder...");
-        TicketBuilder builder = new TicketBuilder(scanner);
+        TicketBuilder builder = new TicketBuilder(scannerManager.getScanner());
         Ticket ticket = builder.buildTicket();
         collectionManager.add(ticket);
         System.out.println("Ticket added.");

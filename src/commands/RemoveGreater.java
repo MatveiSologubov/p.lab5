@@ -1,19 +1,19 @@
 package src.commands;
 
 import src.managers.CollectionManager;
+import src.managers.ScannerManager;
 import src.models.Ticket;
 import src.models.builders.TicketBuilder;
 
-import java.util.Scanner;
 import java.util.Set;
 
 public class RemoveGreater extends Command {
     CollectionManager collectionManager;
-    Scanner scanner;
+    ScannerManager scannerManager;
 
-    public RemoveGreater(CollectionManager collectionManager, Scanner scanner) {
+    public RemoveGreater(CollectionManager collectionManager, ScannerManager scannerManager) {
        this.collectionManager = collectionManager;
-       this.scanner = scanner;
+       this.scannerManager = scannerManager;
     }
 
     /**
@@ -33,7 +33,7 @@ public class RemoveGreater extends Command {
         }
 
         Set<Ticket> collection = collectionManager.getCollection();
-        Ticket target = new TicketBuilder(scanner).buildTicket();
+        Ticket target = new TicketBuilder(scannerManager.getScanner()).buildTicket();
         collection.removeIf(ticket -> ticket.compareTo(target) > 0);
     }
 

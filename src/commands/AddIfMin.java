@@ -1,19 +1,19 @@
 package src.commands;
 
 import src.managers.CollectionManager;
+import src.managers.ScannerManager;
 import src.models.Ticket;
 import src.models.builders.TicketBuilder;
 
 import java.util.Collections;
-import java.util.Scanner;
 
 public class AddIfMin extends Command{
     CollectionManager collectionManager;
-    Scanner scanner;
+    ScannerManager scannerManager;
 
-    public AddIfMin(CollectionManager collectionManager, Scanner scanner) {
+    public AddIfMin(CollectionManager collectionManager, ScannerManager scannerManager) {
         this.collectionManager = collectionManager;
-        this.scanner = scanner;
+        this.scannerManager = scannerManager;
     }
 
     /**
@@ -23,7 +23,7 @@ public class AddIfMin extends Command{
      */
     @Override
     public void execute(String[] args) {
-        TicketBuilder builder = new TicketBuilder(scanner);
+        TicketBuilder builder = new TicketBuilder(scannerManager.getScanner());
         Ticket ticket = builder.buildTicket();
 
         if (collectionManager.getCollection().isEmpty()){

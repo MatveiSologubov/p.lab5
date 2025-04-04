@@ -4,6 +4,7 @@ import src.commands.*;
 import src.managers.CollectionManager;
 import src.managers.CommandManager;
 import src.managers.FileManager;
+import src.managers.ScannerManager;
 
 import java.util.Arrays;
 import java.util.Scanner;
@@ -19,18 +20,20 @@ public class Program {
     private boolean running = true;
 
     public Program() {
+        ScannerManager scannerManager = new ScannerManager(scanner);
+
         commandManager.addCommand("help", new Help(commandManager));
         commandManager.addCommand("info", new Info(collectionManager, commandManager));
         commandManager.addCommand("show", new Show(collectionManager));
-        commandManager.addCommand("add", new Add(collectionManager, scanner));
-        commandManager.addCommand("update", new Update(collectionManager, scanner));
+        commandManager.addCommand("add", new Add(collectionManager, scannerManager));
+        commandManager.addCommand("update", new Update(collectionManager, scannerManager));
         commandManager.addCommand("remove_by_id", new RemoveById(collectionManager));
         commandManager.addCommand("clear", new Clear(collectionManager));
         commandManager.addCommand("save", new Save(collectionManager, fileManager, filePath));
         commandManager.addCommand("exit", new Exit(this::stop));
-        commandManager.addCommand("add_if_max", new AddIfMax(collectionManager, scanner));
-        commandManager.addCommand("add_if_min", new AddIfMin(collectionManager, scanner));
-        commandManager.addCommand("remove_greater", new RemoveGreater(collectionManager, scanner));
+        commandManager.addCommand("add_if_max", new AddIfMax(collectionManager, scannerManager));
+        commandManager.addCommand("add_if_min", new AddIfMin(collectionManager, scannerManager));
+        commandManager.addCommand("remove_greater", new RemoveGreater(collectionManager, scannerManager));
         commandManager.addCommand("min_by_creation_date", new MinByCreationDate(collectionManager));
         commandManager.addCommand("filter_less_than_type", new FilterLessThanType(collectionManager));
         commandManager.addCommand("filter_greater_than_price", new FilterGreaterThanPrice(collectionManager));
