@@ -26,16 +26,21 @@ public class FilterGreaterThanPrice extends Command {
             return;
         }
 
-        int price;
+        float price;
         try {
-            price = Integer.parseInt(args[0]);
+            price = Float.parseFloat(args[0]);
         } catch (NumberFormatException e) {
             System.out.println("Wrong number format");
             return;
         }
 
         for (Ticket ticket : collectionManager.getCollection()) {
-            if (ticket.getPrice() > price) {
+            float currentPrice = 0;
+            if (ticket.getPrice() != null) {
+                currentPrice = ticket.getPrice();
+            }
+
+            if (Float.compare(currentPrice, price) > 0) {
                 System.out.println(ticket);
             }
         }
