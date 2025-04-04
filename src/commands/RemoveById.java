@@ -23,7 +23,14 @@ public class RemoveById extends Command {
             System.out.println("Collection is empty");
         }
 
-        int id = Integer.parseInt(args[0]);
+        int id;
+        try {
+            id = Integer.parseInt(args[0]);
+        } catch (NumberFormatException e) {
+            System.out.println("Error: ID must be an integer.");
+            return;
+        }
+
         boolean success = false;
         for (Ticket ticket : collectionManager.getCollection()) {
             if (ticket.getId() == id) {
