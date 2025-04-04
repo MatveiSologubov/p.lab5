@@ -20,6 +20,7 @@ public class Program {
     private boolean running = true;
 
     public Program() {
+        filePath = System.getenv("COLLECTION_FILE");
         ScannerManager scannerManager = new ScannerManager(scanner);
 
         commandManager.addCommand("help", new Help(commandManager));
@@ -49,7 +50,6 @@ public class Program {
     }
 
     private void start() {
-        filePath = System.getenv("COLLECTION_FILE");
         collectionManager.setCollection(fileManager.load(filePath));
 
         System.out.println("Console program started. Type 'help' for commands.");

@@ -12,4 +12,4 @@ VIP
 123
 PASSPORT-4
 show
-save tickets.xml
+save
