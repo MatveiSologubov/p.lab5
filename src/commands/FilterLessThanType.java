@@ -37,12 +37,12 @@ public class FilterLessThanType extends Command {
             type = TicketType.valueOf(args[0].toUpperCase());
         } catch (IllegalArgumentException e) {
             System.out.println("Wrong type format");
-            System.out.println("Allowed types are: " + collectionManager.getCollection());
+            System.out.println("Allowed types are: " + printOrder());
             return;
         }
 
         for (Ticket ticket : collectionManager.getCollection()) {
-            if (ticket.getType().compareTo(type) > 0) {
+            if (ticket.getType() == null || ticket.getType().compareTo(type) < 0) {
                 System.out.println(ticket);
             }
         }
