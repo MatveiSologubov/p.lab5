@@ -32,6 +32,17 @@ public class Ticket {
         this.person = person;
     }
 
+    public void update(Ticket ticket) {
+        this.name = ticket.getName();
+        this.coordinates = ticket.getCoordinates();
+        this.creationDate = ticket.getCreationDate();
+        this.price = ticket.getPrice();
+        this.comment = ticket.getComment();
+        this.refundable = ticket.getRefundable();
+        this.type = ticket.getType();
+        this.person = ticket.getPerson();
+    }
+
     public long getId() {
         return id;
     }
