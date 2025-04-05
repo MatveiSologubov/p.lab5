@@ -63,6 +63,8 @@ public class FileManager {
                 writeElement("price", ticket.getPrice().toString());
             }
 
+            writeElement("comment", ticket.getComment());
+
             // Refundable
             writeElement("refundable", ticket.getRefundable().toString());
 
@@ -169,6 +171,7 @@ public class FileManager {
                 case "name" -> currentTicket.setName(text);
                 case "creationDate" -> currentTicket.setCreationDate(ZonedDateTime.parse(text));
                 case "price" -> currentTicket.setPrice(Float.parseFloat(text));
+                case "comment" -> currentTicket.setComment(text);
                 case "refundable" -> currentTicket.setRefundable(Boolean.parseBoolean(text));
                 case "type" -> currentTicket.setType(TicketType.valueOf(text));
                 case "x" -> currentCoordinates.setX(Integer.parseInt(text));
