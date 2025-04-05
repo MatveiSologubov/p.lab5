@@ -24,7 +24,7 @@ public class AddIfMax extends Command {
     @Override
     public void execute(String[] args) {
         TicketBuilder ticketBuilder = new TicketBuilder(scannerManager.getScanner());
-        Ticket ticket = ticketBuilder.buildTicket();
+        Ticket ticket = ticketBuilder.build();
 
         if (collectionManager.getCollection().isEmpty()) {
             collectionManager.add(ticket);

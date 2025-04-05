@@ -43,7 +43,7 @@ public class Update extends Command {
             if (ticket.getId() == id) {
                 ticketExists = true;
                 TicketBuilder ticketBuilder = new TicketBuilder(scannerManager.getScanner());
-                ticket.update(ticketBuilder.buildTicket());
+                ticket.update(ticketBuilder.build());
                 System.out.println("Ticket updated");
                 break;
             }

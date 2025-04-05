@@ -24,7 +24,7 @@ public class AddIfMin extends Command {
     @Override
     public void execute(String[] args) {
         TicketBuilder builder = new TicketBuilder(scannerManager.getScanner());
-        Ticket ticket = builder.buildTicket();
+        Ticket ticket = builder.build();
 
         if (collectionManager.getCollection().isEmpty()) {
             collectionManager.add(ticket);

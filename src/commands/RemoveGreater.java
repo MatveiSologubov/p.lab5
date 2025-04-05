@@ -33,7 +33,7 @@ public class RemoveGreater extends Command {
         }
 
         Set<Ticket> collection = collectionManager.getCollection();
-        Ticket target = new TicketBuilder(scannerManager.getScanner()).buildTicket();
+        Ticket target = new TicketBuilder(scannerManager.getScanner()).build();
         collection.removeIf(ticket -> ticket.compareTo(target) > 0);
     }
 

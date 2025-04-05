@@ -23,7 +23,7 @@ public class Add extends Command {
     public void execute(String[] args) {
         System.out.println("Starting Ticket Builder...");
         TicketBuilder builder = new TicketBuilder(scannerManager.getScanner());
-        Ticket ticket = builder.buildTicket();
+        Ticket ticket = builder.build();
         collectionManager.add(ticket);
         System.out.println("Ticket added.");
     }

@@ -5,110 +5,26 @@ import src.models.Person;
 import src.models.Ticket;
 import src.models.TicketType;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 import java.util.Scanner;
 
-public class TicketBuilder {
+public class TicketBuilder extends Builder<Ticket> {
     private final Scanner scanner;
 
     public TicketBuilder(Scanner scanner) {
         this.scanner = scanner;
     }
 
-    public Ticket buildTicket() {
+    @Override
+    public Ticket build() {
         String name = readName();
         Coordinates coordinates = readCoordinates();
         Float price = readPrice();
         String comment = readComment();
         Boolean refundable = readRefundable();
         TicketType ticketType = readTicketType();
-        Person person = readPerson();
+        Person person = new PersonBuilder(scanner).build();
         return new Ticket(name, coordinates, price, comment, refundable, ticketType, person);
-    }
-
-    private Person readPerson() {
-        LocalDateTime birthday = readBirthday();
-        Integer height = readHeight();
-        float weight = readWeight();
-        String passportID = readPassportID();
-        return new Person(birthday, height, weight, passportID);
-    }
-
-    private String readPassportID() {
-        System.out.println("Enter Passport ID (nullable): ");
-        String passportID = scanner.nextLine().trim();
-        if (passportID.isEmpty()) {
-            return null;
-        }
-        return passportID;
-    }
-
-    private float readWeight() {
-        while (true) {
-            System.out.println("Enter weight (kg) (not nullable): ");
-            String input = scanner.nextLine().trim();
-            if (input.isEmpty()) {
-                System.out.println("Weight cannot be empty!");
-                continue;
-            }
-            try {
-                float weight = Float.parseFloat(input);
-                if (weight <= 0) {
-                    System.out.println("Weight must be positive!");
-                    continue;
-                }
-                return weight;
-            } catch (NumberFormatException e) {
-                System.out.println("Weight must be float");
-            }
-        }
-    }
-
-    private Integer readHeight() {
-        while (true) {
-            System.out.println("Please enter the height of the person (not nullable):");
-            String input = scanner.nextLine().trim();
-            if (input.isEmpty()) {
-                System.out.println("Height must not be empty");
-                continue;
-            }
-            try {
-                int height = Integer.parseInt(input);
-                if (height <= 0) {
-                    System.out.println("Height must be positive");
-                }
-                return height;
-            } catch (NumberFormatException e) {
-                System.out.println("Height must be an integer");
-            }
-        }
-    }
-
-    private LocalDateTime readBirthday() {
-        while (true) {
-            System.out.println("Please enter persons birthday (nullable) (yyyy-MM-dd): ");
-            String birthday = scanner.nextLine().trim();
-            if (birthday.isEmpty()) {
-                return null;
-            }
-
-            try {
-                LocalDate birthdayDate = LocalDate.parse(birthday);
-
-                if (birthdayDate.isAfter(LocalDate.now())) {
-                    System.out.println("Please enter a valid birthday");
-                    continue;
-                }
-
-                return birthdayDate.atStartOfDay();
-
-            } catch (DateTimeParseException e) {
-                System.out.println("Please enter a valid birthday");
-            }
-        }
     }
 
     private TicketType readTicketType() {
