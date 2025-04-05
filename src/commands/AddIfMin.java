@@ -7,9 +7,9 @@ import src.models.builders.TicketBuilder;
 
 import java.util.Collections;
 
-public class AddIfMin extends Command{
-    CollectionManager collectionManager;
-    ScannerManager scannerManager;
+public class AddIfMin extends Command {
+    private final CollectionManager collectionManager;
+    private final ScannerManager scannerManager;
 
     public AddIfMin(CollectionManager collectionManager, ScannerManager scannerManager) {
         this.collectionManager = collectionManager;
@@ -26,14 +26,14 @@ public class AddIfMin extends Command{
         TicketBuilder builder = new TicketBuilder(scannerManager.getScanner());
         Ticket ticket = builder.buildTicket();
 
-        if (collectionManager.getCollection().isEmpty()){
+        if (collectionManager.getCollection().isEmpty()) {
             collectionManager.add(ticket);
             System.out.println("Added Ticket with price " + ticket.getPrice() + " to collection");
             return;
         }
 
         Ticket minTicket = Collections.min(collectionManager.getCollection());
-        if (ticket.compareTo(minTicket) < 0){
+        if (ticket.compareTo(minTicket) < 0) {
             collectionManager.add(ticket);
             System.out.println("Added Ticket with price " + ticket.getPrice() + " to collection");
             return;

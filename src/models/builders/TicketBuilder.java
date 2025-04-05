@@ -154,7 +154,7 @@ public class TicketBuilder {
             String input = scanner.nextLine().trim();
             if (input.isEmpty()) return null;
             try {
-                Float price = Float.parseFloat(input);
+                float price = Float.parseFloat(input);
                 if (price > 0) {
                     return price;
                 }
@@ -202,7 +202,7 @@ public class TicketBuilder {
             String inputY = scanner.nextLine().trim();
 
             try {
-                Float y = Float.parseFloat(inputY);
+                float y = Float.parseFloat(inputY);
 
                 if (y <= -429) {
                     System.out.println("Error: Y coordinate must be greater than -429");

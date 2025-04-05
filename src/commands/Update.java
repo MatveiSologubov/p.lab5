@@ -6,8 +6,8 @@ import src.models.Ticket;
 import src.models.builders.TicketBuilder;
 
 public class Update extends Command {
-    CollectionManager collectionManager;
-    ScannerManager scannerManager;
+    private final CollectionManager collectionManager;
+    private final ScannerManager scannerManager;
 
     public Update(CollectionManager collectionManager, ScannerManager scannerManager) {
         this.collectionManager = collectionManager;

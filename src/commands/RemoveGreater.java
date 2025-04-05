@@ -8,12 +8,12 @@ import src.models.builders.TicketBuilder;
 import java.util.Set;
 
 public class RemoveGreater extends Command {
-    CollectionManager collectionManager;
-    ScannerManager scannerManager;
+    private final CollectionManager collectionManager;
+    private final ScannerManager scannerManager;
 
     public RemoveGreater(CollectionManager collectionManager, ScannerManager scannerManager) {
-       this.collectionManager = collectionManager;
-       this.scannerManager = scannerManager;
+        this.collectionManager = collectionManager;
+        this.scannerManager = scannerManager;
     }
 
     /**

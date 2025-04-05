@@ -15,7 +15,7 @@ public class Program {
     private final FileManager fileManager = new FileManager();
     private final Scanner scanner = new Scanner(System.in);
 
-    private String filePath;
+    private final String filePath;
 
     private boolean running = true;
 
@@ -24,7 +24,7 @@ public class Program {
         ScannerManager scannerManager = new ScannerManager(scanner);
 
         commandManager.addCommand("help", new Help(commandManager));
-        commandManager.addCommand("info", new Info(collectionManager, commandManager));
+        commandManager.addCommand("info", new Info(collectionManager));
         commandManager.addCommand("show", new Show(collectionManager));
         commandManager.addCommand("add", new Add(collectionManager, scannerManager));
         commandManager.addCommand("update", new Update(collectionManager, scannerManager));

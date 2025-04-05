@@ -4,7 +4,7 @@ import src.managers.CollectionManager;
 import src.models.Ticket;
 
 public class FilterGreaterThanPrice extends Command {
-    CollectionManager collectionManager;
+    private final CollectionManager collectionManager;
 
     public FilterGreaterThanPrice(CollectionManager collectionManager) {
         this.collectionManager = collectionManager;

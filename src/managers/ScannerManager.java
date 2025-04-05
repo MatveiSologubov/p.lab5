@@ -3,9 +3,9 @@ package src.managers;
 import java.util.Scanner;
 
 public class ScannerManager {
-    Scanner mainScanner;
-    Scanner fileScanner;
+    private final Scanner mainScanner;
     boolean scriptMode = false;
+    private Scanner fileScanner;
 
     public ScannerManager(Scanner mainScanner) {
         this.mainScanner = mainScanner;

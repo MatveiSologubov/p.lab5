@@ -8,7 +8,7 @@ import java.util.Arrays;
 import java.util.stream.Collectors;
 
 public class FilterLessThanType extends Command {
-    CollectionManager collectionManager;
+    private final CollectionManager collectionManager;
 
     public FilterLessThanType(CollectionManager collectionManager) {
         this.collectionManager = collectionManager;

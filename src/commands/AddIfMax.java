@@ -8,8 +8,8 @@ import src.models.builders.TicketBuilder;
 import java.util.Collections;
 
 public class AddIfMax extends Command {
-    CollectionManager collectionManager;
-    ScannerManager scannerManager;
+    private final CollectionManager collectionManager;
+    private final ScannerManager scannerManager;
 
     public AddIfMax(CollectionManager collectionManager, ScannerManager scannerManager) {
         this.collectionManager = collectionManager;
