@@ -5,6 +5,7 @@ import src.models.Person;
 import src.models.Ticket;
 import src.models.TicketType;
 
+import java.time.ZonedDateTime;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -24,7 +25,7 @@ public class TicketBuilder extends Builder<Ticket> {
         Boolean refundable = readRefundable();
         TicketType ticketType = readTicketType();
         Person person = new PersonBuilder(scanner).build();
-        return new Ticket(name, coordinates, price, comment, refundable, ticketType, person);
+        return new Ticket(name, coordinates, ZonedDateTime.now(), price, comment, refundable, ticketType, person);
     }
 
     private TicketType readTicketType() {

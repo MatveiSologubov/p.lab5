@@ -2,7 +2,7 @@ package src.models;
 
 import java.time.LocalDateTime;
 
-public class Person {
+public class Person implements Validatable {
     private LocalDateTime birthday; // Поле может быть null
     private Integer height; // Поле не может быть null, Значение поля должно быть больше 0
     private float weight; // Значение поля должно быть больше 0
@@ -58,5 +58,16 @@ public class Person {
                 ", weight=" + weight +
                 ", passportID='" + passportID + '\'' +
                 '}';
+    }
+
+    /**
+     * @return 
+     */
+    @Override
+    public boolean validate() {
+        if (birthday != null && birthday.isAfter(LocalDateTime.now())) return false;
+        if (height == null || height <= 0) return false;
+        if (weight <= 0) return false;
+        return passportID == null || !passportID.isEmpty();
     }
 }

@@ -1,6 +1,6 @@
 package src.models;
 
-public class Coordinates {
+public class Coordinates implements Validatable {
     private Integer x; // Максимальное значение поля: 793, Поле не может быть null
     private Float y; // Значение поля должно быть больше -429, Поле не может быть null
 
@@ -35,5 +35,15 @@ public class Coordinates {
                 "x=" + x +
                 ", y=" + y +
                 '}';
+    }
+
+    /**
+     *
+     */
+    @Override
+    public boolean validate() {
+        if (x == null || y == null) return false;
+        if (x > 793) return false;
+        return y > -429;
     }
 }

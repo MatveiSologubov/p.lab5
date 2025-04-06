@@ -173,7 +173,13 @@ public class FileManager {
                 case "price" -> currentTicket.setPrice(Float.parseFloat(text));
                 case "comment" -> currentTicket.setComment(text);
                 case "refundable" -> currentTicket.setRefundable(Boolean.parseBoolean(text));
-                case "type" -> currentTicket.setType(TicketType.valueOf(text));
+                case "type" -> {
+                    try {
+                        currentTicket.setType(TicketType.valueOf(text));
+                    } catch (IllegalArgumentException e) {
+                        System.out.println("Invalid ticket type");
+                    }
+                }
                 case "x" -> currentCoordinates.setX(Integer.parseInt(text));
                 case "y" -> currentCoordinates.setY(Float.parseFloat(text));
                 case "birthday" -> currentPerson.setBirthday(LocalDateTime.parse(text));
@@ -193,11 +199,16 @@ public class FileManager {
 
         private void initNewTicket(XMLStreamReader reader) {
             currentTicket = new Ticket();
-            currentTicket.setId(Long.parseLong(reader.getAttributeValue(null, "id")));
+            try {
+                currentTicket.setId(Long.parseLong(reader.getAttributeValue(null, "id")));
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid ticket id");
+            }
         }
 
         private void completeTicket() {
-            collection.add(currentTicket);
+            if (currentTicket.validate()) collection.add(currentTicket);
+            else System.out.println("Invalid ticket in file");
             currentTicket = null;
         }
 

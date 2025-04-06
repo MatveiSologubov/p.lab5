@@ -2,7 +2,7 @@ package src.models;
 
 import java.time.ZonedDateTime;
 
-public class Ticket implements Comparable<Ticket> {
+public class Ticket implements Comparable<Ticket>, Validatable {
     private static long idCounter = 1; // Значение поля должно быть больше 0, Значение этого поля должно быть
     // уникальным, Значение этого поля должно генерироваться автоматически
     private long id;
@@ -19,12 +19,12 @@ public class Ticket implements Comparable<Ticket> {
     public Ticket() {
     }
 
-    public Ticket(String name, Coordinates coordinates, Float price,
+    public Ticket(String name, Coordinates coordinates, ZonedDateTime creationDate, Float price,
                   String comment, Boolean refundable, TicketType type, Person person) {
         this.id = idCounter++;
         this.name = name;
         this.coordinates = coordinates;
-        this.creationDate = ZonedDateTime.now();
+        this.creationDate = creationDate;
         this.price = price;
         this.comment = comment;
         this.refundable = refundable;
@@ -35,7 +35,6 @@ public class Ticket implements Comparable<Ticket> {
     public void update(Ticket ticket) {
         this.name = ticket.getName();
         this.coordinates = ticket.getCoordinates();
-        this.creationDate = ticket.getCreationDate();
         this.price = ticket.getPrice();
         this.comment = ticket.getComment();
         this.refundable = ticket.getRefundable();
@@ -136,5 +135,21 @@ public class Ticket implements Comparable<Ticket> {
                 ", type=" + type +
                 ", person=" + person +
                 '}';
+    }
+
+    /**
+     * @return 
+     */
+    @Override
+    public boolean validate() {
+        if (id <= 0) return false;
+        if (name == null || name.isEmpty()) return false;
+        if (coordinates == null || !coordinates.validate()) return false;
+        if (creationDate == null || creationDate.isAfter(ZonedDateTime.now())) return false;
+        if (price != null && price <= 0) return false;
+        if (comment != null && comment.length() <= 855) return false;
+        if (refundable == null) return false;
+        if (person != null) return person.validate();
+        return true;
     }
 }
