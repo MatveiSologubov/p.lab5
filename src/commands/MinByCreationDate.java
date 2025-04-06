@@ -1,5 +1,6 @@
 package src.commands;
 
+import src.exceptions.CollectionIsEmptyException;
 import src.exceptions.WrongAmountOfArgumentsException;
 import src.managers.CollectionManager;
 import src.models.Ticket;
@@ -20,20 +21,22 @@ public class MinByCreationDate extends Command {
      * @param args
      */
     @Override
-    public void execute(String[] args) {
-        if (args.length != 0) throw new WrongAmountOfArgumentsException(0, args.length);
+    public void execute(String[] args) throws WrongAmountOfArgumentsException {
+        try {
+            if (args.length != 0) throw new WrongAmountOfArgumentsException(0, args.length);
+            Set<Ticket> collection = collectionManager.getCollection();
+            if (collection.isEmpty()) {
+                throw new CollectionIsEmptyException();
+            }
 
-        Set<Ticket> collection = collectionManager.getCollection();
+            Ticket minTicket = collection.stream()
+                    .min(Comparator.comparing(Ticket::getCreationDate))
+                    .orElse(null);
 
-        if (collection.isEmpty()) {
-            System.out.println("Collection is empty");
-            return;
+            System.out.println(minTicket);
+        } catch (CollectionIsEmptyException e) {
+            System.out.println(e.getMessage());
         }
-
-        Ticket minTicket = collection.stream()
-                .min(Comparator.comparing(Ticket::getCreationDate))
-                .orElse(null);
-        System.out.println(minTicket);
     }
 
     /**

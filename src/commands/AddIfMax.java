@@ -25,35 +25,31 @@ public class AddIfMax extends Command {
      */
     @Override
     public void execute(String[] args) {
-        if (args.length != 0) throw new WrongAmountOfArgumentsException(0, args.length);
+        try {
+            if (args.length != 0) throw new WrongAmountOfArgumentsException(0, args.length);
 
-        TicketBuilder ticketBuilder = new TicketBuilder(scannerManager.getScanner());
-        Ticket ticket = ticketBuilder.build();
+            TicketBuilder ticketBuilder = new TicketBuilder(scannerManager.getScanner());
+            Ticket ticket = ticketBuilder.build();
 
-        if (collectionManager.getCollection().isEmpty()) {
-            try {
+            Ticket maxTicket = Collections.max(collectionManager.getCollection());
+            if (collectionManager.getCollection().isEmpty()) {
                 collectionManager.add(ticket);
                 System.out.println("Added Ticket with price " + ticket.getPrice() + " to collection");
                 return;
-            } catch (DuplicateIdException e) {
-                System.out.println(e.getMessage());
-                System.out.println("Ticket not added");
             }
-        }
 
-        Ticket maxTicket = Collections.max(collectionManager.getCollection());
-        if (ticket.compareTo(maxTicket) > 0) {
-            try {
+            if (ticket.compareTo(maxTicket) > 0) {
                 collectionManager.add(ticket);
                 System.out.println("Added Ticket with price " + ticket.getPrice() + " to collection");
                 return;
-            } catch (DuplicateIdException e) {
-                System.out.println(e.getMessage());
-                System.out.println("Ticket not added");
             }
+            System.out.println("Ticket not added to collection. Current max price is " + maxTicket.getPrice());
+        } catch (DuplicateIdException e) {
+            System.out.println(e.getMessage());
+            System.out.println("Ticket not added");
+        } catch (WrongAmountOfArgumentsException e) {
+            System.out.println(e.getMessage());
         }
-
-        System.out.println("Ticket not added to collection. Current max price is " + maxTicket.getPrice());
     }
 
     /**

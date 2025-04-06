@@ -1,5 +1,6 @@
 package src.commands;
 
+import src.exceptions.CollectionIsEmptyException;
 import src.exceptions.WrongAmountOfArgumentsException;
 import src.managers.CollectionManager;
 import src.models.Ticket;
@@ -18,29 +19,28 @@ public class FilterGreaterThanPrice extends Command {
      */
     @Override
     public void execute(String[] args) {
-        if (args.length != 1) throw new WrongAmountOfArgumentsException(1, args.length);
-        if (collectionManager.getCollection().isEmpty()) {
-            System.out.println("Collection is empty");
-            return;
-        }
-
-        float price;
         try {
+            if (args.length != 1) throw new WrongAmountOfArgumentsException(1, args.length);
+            if (collectionManager.getCollection().isEmpty()) {
+                throw new CollectionIsEmptyException();
+            }
+
+            float price;
             price = Float.parseFloat(args[0]);
+            for (Ticket ticket : collectionManager.getCollection()) {
+                float currentPrice = 0;
+                if (ticket.getPrice() != null) {
+                    currentPrice = ticket.getPrice();
+                }
+
+                if (Float.compare(currentPrice, price) > 0) {
+                    System.out.println(ticket);
+                }
+            }
         } catch (NumberFormatException e) {
-            System.out.println("Wrong number format");
-            return;
-        }
-
-        for (Ticket ticket : collectionManager.getCollection()) {
-            float currentPrice = 0;
-            if (ticket.getPrice() != null) {
-                currentPrice = ticket.getPrice();
-            }
-
-            if (Float.compare(currentPrice, price) > 0) {
-                System.out.println(ticket);
-            }
+            System.out.println("ERROR: Wrong number format");
+        } catch (WrongAmountOfArgumentsException | CollectionIsEmptyException e) {
+            System.out.println(e.getMessage());
         }
     }
 

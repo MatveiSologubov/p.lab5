@@ -14,7 +14,7 @@ public class Info extends Command {
      * executes command
      */
     @Override
-    public void execute(String[] args) {
+    public void execute(String[] args) throws WrongAmountOfArgumentsException {
         if (args.length != 0) throw new WrongAmountOfArgumentsException(0, args.length);
 
         System.out.println("Collection Info:");

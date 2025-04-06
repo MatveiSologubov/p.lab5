@@ -1,12 +1,12 @@
 package src.commands;
 
+import src.exceptions.CollectionIsEmptyException;
 import src.exceptions.WrongAmountOfArgumentsException;
 import src.managers.CollectionManager;
 import src.models.Ticket;
 import src.models.TicketType;
 
 import java.util.Arrays;
-import java.util.stream.Collectors;
 
 public class FilterLessThanType extends Command {
     private final CollectionManager collectionManager;
@@ -21,36 +21,27 @@ public class FilterLessThanType extends Command {
      * @param args
      */
     @Override
-    public void execute(String[] args) {
+    public void execute(String[] args) throws WrongAmountOfArgumentsException {
         if (args.length != 1) throw new WrongAmountOfArgumentsException(1, args.length);
-        if (collectionManager.getCollection().isEmpty()) {
-            System.out.println("Collection is empty");
-            return;
-        }
-
-        printOrder();
-
-        TicketType type;
         try {
+            if (collectionManager.getCollection().isEmpty()) throw new CollectionIsEmptyException();
+
+            System.out.println("Order: " + TicketType.order());
+
+            TicketType type;
             type = TicketType.valueOf(args[0].toUpperCase());
-        } catch (IllegalArgumentException e) {
-            System.out.println("Wrong type format");
-            System.out.println("Allowed types are: " + printOrder());
-            return;
-        }
 
-        for (Ticket ticket : collectionManager.getCollection()) {
-            if (ticket.getType() == null || ticket.getType().compareTo(type) < 0) {
-                System.out.println(ticket);
+            for (Ticket ticket : collectionManager.getCollection()) {
+                if (ticket.getType() == null || ticket.getType().compareTo(type) < 0) {
+                    System.out.println(ticket);
+                }
             }
+        } catch (CollectionIsEmptyException e) {
+            System.out.println(e.getMessage());
+        } catch (IllegalArgumentException e) {
+            System.out.println("ERROR: Wrong type format");
+            System.out.println("Allowed types are: " + Arrays.toString(TicketType.values()));
         }
-    }
-
-    private String printOrder() {
-        String result = Arrays.stream(TicketType.values())
-                .map(Enum::name)
-                .collect(Collectors.joining(" < "));
-        return "Order: " + result;
     }
 
     /**
@@ -58,6 +49,6 @@ public class FilterLessThanType extends Command {
      */
     @Override
     public String getHelp() {
-        return "Prints all the tickets that have type \"smaller\" than the specified type. " + printOrder();
+        return "Prints all the tickets that have type \"smaller\" than the specified type.";
     }
 }

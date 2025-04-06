@@ -1,5 +1,7 @@
 package src.commands;
 
+import src.exceptions.CollectionIsEmptyException;
+import src.exceptions.ElementNotFoundException;
 import src.exceptions.WrongAmountOfArgumentsException;
 import src.managers.CollectionManager;
 import src.managers.ScannerManager;
@@ -21,34 +23,31 @@ public class Update extends Command {
      * @param args
      */
     @Override
-    public void execute(String[] args) {
-        if (args.length != 1) throw new WrongAmountOfArgumentsException(1, args.length);
-        if (collectionManager.getCollection().isEmpty()) {
-            System.out.println("Collection is empty");
-            return;
-        }
-
-        int id;
+    public void execute(String[] args) throws WrongAmountOfArgumentsException {
         try {
-            id = Integer.parseInt(args[0]);
+            if (args.length != 1) throw new WrongAmountOfArgumentsException(1, args.length);
+            if (collectionManager.getCollection().isEmpty()) throw new CollectionIsEmptyException();
+
+            int id = Integer.parseInt(args[0]);
+
+            boolean ticketExists = false;
+            for (Ticket ticket : collectionManager.getCollection()) {
+                if (ticket.getId() == id) {
+                    ticketExists = true;
+                    TicketBuilder ticketBuilder = new TicketBuilder(scannerManager.getScanner());
+                    ticket.update(ticketBuilder.build());
+                    System.out.println("Ticket updated");
+                    break;
+                }
+            }
+
+            if (!ticketExists) {
+                throw new ElementNotFoundException("Ticket with id " + id);
+            }
+        } catch (CollectionIsEmptyException | ElementNotFoundException e) {
+            System.out.println(e.getMessage());
         } catch (NumberFormatException e) {
             System.out.println("Error: ID must be an integer");
-            return;
-        }
-
-        boolean ticketExists = false;
-        for (Ticket ticket : collectionManager.getCollection()) {
-            if (ticket.getId() == id) {
-                ticketExists = true;
-                TicketBuilder ticketBuilder = new TicketBuilder(scannerManager.getScanner());
-                ticket.update(ticketBuilder.build());
-                System.out.println("Ticket updated");
-                break;
-            }
-        }
-
-        if (!ticketExists) {
-            System.out.println("Ticket does not exist");
         }
     }
 

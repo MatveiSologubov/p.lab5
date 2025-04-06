@@ -10,7 +10,7 @@ public class Exit extends Command {
     }
 
     @Override
-    public void execute(String[] args) {
+    public void execute(String[] args) throws WrongAmountOfArgumentsException {
         if (args.length != 0) throw new WrongAmountOfArgumentsException(0, args.length);
 
         System.out.println("Exiting program...");

@@ -1,5 +1,7 @@
 package src.commands;
 
+import src.exceptions.CollectionIsEmptyException;
+import src.exceptions.ElementNotFoundException;
 import src.exceptions.WrongAmountOfArgumentsException;
 import src.managers.CollectionManager;
 import src.models.Ticket;
@@ -16,33 +18,33 @@ public class RemoveById extends Command {
      */
     @Override
     public void execute(String[] args) {
-        if (args.length != 1) throw new WrongAmountOfArgumentsException(1, args.length);
-        if (collectionManager.getCollection().isEmpty()) {
-            System.out.println("Collection is empty");
-        }
-
-        int id;
         try {
-            id = Integer.parseInt(args[0]);
+            if (args.length != 1) throw new WrongAmountOfArgumentsException(1, args.length);
+            if (collectionManager.getCollection().isEmpty()) {
+                throw new CollectionIsEmptyException();
+            }
+
+            int id = Integer.parseInt(args[0]);
+
+            boolean success = false;
+            for (Ticket ticket : collectionManager.getCollection()) {
+                if (ticket.getId() == id) {
+                    collectionManager.getCollection().remove(ticket);
+                    success = true;
+                    break;
+                }
+            }
+
+            if (!success) {
+                throw new ElementNotFoundException("Ticket with id " + id);
+            }
+
+            System.out.println("Ticket with id " + id + " removed");
         } catch (NumberFormatException e) {
             System.out.println("Error: ID must be an integer.");
-            return;
+        } catch (CollectionIsEmptyException | ElementNotFoundException | WrongAmountOfArgumentsException e) {
+            System.out.println(e.getMessage());
         }
-
-        boolean success = false;
-        for (Ticket ticket : collectionManager.getCollection()) {
-            if (ticket.getId() == id) {
-                collectionManager.getCollection().remove(ticket);
-                success = true;
-                break;
-            }
-        }
-        if (!success) {
-            System.out.println("Ticket not found");
-            return;
-        }
-
-        System.out.println("Ticket with id " + id + " removed");
     }
 
     /**

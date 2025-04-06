@@ -37,13 +37,17 @@ public class CollectionManager {
         return this.collection;
     }
 
-    public void setCollection(Set<Ticket> newCollection) throws DuplicateIdException {
+    public void setCollection(Set<Ticket> newCollection) {
         collection.clear();
         usedIds.clear();
         long maxId = 0;
         for (Ticket ticket : newCollection) {
-            add(ticket);
-            maxId = Math.max(maxId, ticket.getId());
+            try {
+                add(ticket);
+                maxId = Math.max(maxId, ticket.getId());
+            } catch (DuplicateIdException e) {
+                System.out.println(e.getMessage());
+            }
         }
         Ticket.setIdCounter(maxId + 1);
     }

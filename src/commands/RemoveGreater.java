@@ -1,5 +1,6 @@
 package src.commands;
 
+import src.exceptions.CollectionIsEmptyException;
 import src.exceptions.WrongAmountOfArgumentsException;
 import src.managers.CollectionManager;
 import src.managers.ScannerManager;
@@ -23,16 +24,20 @@ public class RemoveGreater extends Command {
      * @param args
      */
     @Override
-    public void execute(String[] args) {
-        if (args.length != 0) throw new WrongAmountOfArgumentsException(0, args.length);
-        if (collectionManager.getCollection().isEmpty()) {
-            System.out.println("Collection is empty");
-            return;
-        }
+    public void execute(String[] args) throws WrongAmountOfArgumentsException {
+        try {
+            if (args.length != 0) throw new WrongAmountOfArgumentsException(0, args.length);
+            if (collectionManager.getCollection().isEmpty()) {
+                throw new CollectionIsEmptyException();
+            }
 
-        Set<Ticket> collection = collectionManager.getCollection();
-        Ticket target = new TicketBuilder(scannerManager.getScanner()).build();
-        collection.removeIf(ticket -> ticket.compareTo(target) > 0);
+            Set<Ticket> collection = collectionManager.getCollection();
+            Ticket target = new TicketBuilder(scannerManager.getScanner()).build();
+            collection.removeIf(ticket -> ticket.compareTo(target) > 0);
+
+        } catch (CollectionIsEmptyException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     /**

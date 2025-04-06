@@ -17,7 +17,7 @@ public class Show extends Command {
      * executes command
      */
     @Override
-    public void execute(String[] args) {
+    public void execute(String[] args) throws WrongAmountOfArgumentsException {
         if (args.length != 0) throw new WrongAmountOfArgumentsException(0, args.length);
 
         Set<Ticket> tickets = collectionManager.getCollection();

@@ -50,11 +50,7 @@ public class Program {
     }
 
     private void start() {
-        try {
-            collectionManager.setCollection(fileManager.load(filePath));
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
+        collectionManager.setCollection(fileManager.load(filePath));
 
         System.out.println("Console program started. Type 'help' for commands.");
 
@@ -78,7 +74,6 @@ public class Program {
                 System.out.println("Unknown command. Type 'help' for available commands");
             }
         }
-
         scanner.close();
     }
 }

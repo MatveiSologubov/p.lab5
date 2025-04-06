@@ -19,21 +19,23 @@ public class Add extends Command {
     /**
      * execute command
      *
-     * @param args
+     * @param args arguments for command
      */
     @Override
     public void execute(String[] args) {
-        if (args.length != 0) throw new WrongAmountOfArgumentsException(0, args.length);
-        System.out.println("Starting Ticket Builder...");
-        TicketBuilder builder = new TicketBuilder(scannerManager.getScanner());
-        Ticket ticket = builder.build();
         try {
+            if (args.length != 0) throw new WrongAmountOfArgumentsException(0, args.length);
+            System.out.println("Starting Ticket Builder...");
+            TicketBuilder builder = new TicketBuilder(scannerManager.getScanner());
+            Ticket ticket = builder.build();
             collectionManager.add(ticket);
+            System.out.println("Ticket added.");
         } catch (DuplicateIdException e) {
             System.out.println(e.getMessage());
             System.out.println("Ticket not added.");
+        } catch (WrongAmountOfArgumentsException e) {
+            System.out.println(e.getMessage());
         }
-        System.out.println("Ticket added.");
     }
 
     /**

@@ -1,5 +1,6 @@
 package src.models.builders;
 
+import src.exceptions.FieldMustNotBeEmpty;
 import src.models.Coordinates;
 import src.models.Person;
 import src.models.Ticket;
@@ -93,12 +94,10 @@ public class TicketBuilder extends Builder<Ticket> {
         while (true) {
             System.out.println("Enter x coordinate (not nullable) (Integer x <= 793): ");
             String input = scanner.nextLine().trim();
-            if (input.isEmpty()) {
-                System.out.println("X coordinate cannot be null");
-                continue;
-            }
 
             try {
+                if (input.isEmpty()) throw new FieldMustNotBeEmpty("x coordinate");
+
                 int x = Integer.parseInt(input);
 
                 if (x > 793) {
@@ -107,6 +106,8 @@ public class TicketBuilder extends Builder<Ticket> {
                 }
 
                 return x;
+            } catch (FieldMustNotBeEmpty e) {
+                System.out.println(e.getMessage());
             } catch (NumberFormatException e) {
                 System.out.println("X coordinate must be an integer");
             }
@@ -119,6 +120,8 @@ public class TicketBuilder extends Builder<Ticket> {
             String inputY = scanner.nextLine().trim();
 
             try {
+                if (inputY.isEmpty()) throw new FieldMustNotBeEmpty("Y coordinate");
+
                 float y = Float.parseFloat(inputY);
 
                 if (y <= -429) {
@@ -127,6 +130,8 @@ public class TicketBuilder extends Builder<Ticket> {
                 }
 
                 return y;
+            } catch (FieldMustNotBeEmpty e) {
+                System.out.println(e.getMessage());
             } catch (NumberFormatException e) {
                 System.out.println("Y coordinate must be float");
             }
@@ -136,12 +141,16 @@ public class TicketBuilder extends Builder<Ticket> {
 
     private String readName() {
         while (true) {
-            System.out.println("Please enter the name of the ticket (not nullable): ");
-            String input = scanner.nextLine().trim();
-            if (!input.isEmpty()) {
+            try {
+                System.out.println("Please enter the name of the ticket (not nullable): ");
+                String input = scanner.nextLine().trim();
+                if (input.isEmpty()) {
+                    throw new FieldMustNotBeEmpty("Ticket name");
+                }
                 return input;
+            } catch (FieldMustNotBeEmpty e) {
+                System.out.println(e.getMessage());
             }
-            System.out.println("Error: Ticket name cannot be empty");
         }
     }
 }

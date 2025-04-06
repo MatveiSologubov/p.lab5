@@ -9,6 +9,7 @@ import javax.xml.stream.*;
 import java.io.*;
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
+import java.time.format.DateTimeParseException;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -141,10 +142,16 @@ public class FileManager {
         public Set<Ticket> parse(XMLStreamReader reader) throws XMLStreamException {
             while (reader.hasNext()) {
                 int event = reader.next();
-                switch (event) {
-                    case XMLStreamConstants.START_ELEMENT -> handleStartElement(reader);
-                    case XMLStreamConstants.CHARACTERS -> handleCharacters(reader);
-                    case XMLStreamConstants.END_ELEMENT -> handleEndElement(reader);
+                try {
+                    switch (event) {
+                        case XMLStreamConstants.START_ELEMENT -> handleStartElement(reader);
+                        case XMLStreamConstants.CHARACTERS -> handleCharacters(reader);
+                        case XMLStreamConstants.END_ELEMENT -> handleEndElement(reader);
+                    }
+                } catch (DateTimeParseException e) {
+                    System.out.println("Error parsing date: " + e.getMessage());
+                } catch (Exception e) {
+                    System.out.println("Error parsing element: " + e.getMessage());
                 }
             }
             return collection;
@@ -159,7 +166,7 @@ public class FileManager {
             }
         }
 
-        private void handleCharacters(XMLStreamReader reader) {
+        private void handleCharacters(XMLStreamReader reader) throws IllegalStateException {
             String text = reader.getText().trim();
             if (text.isEmpty() || currentTicket == null) return;
 
@@ -169,19 +176,14 @@ public class FileManager {
                 case "price" -> currentTicket.setPrice(Float.parseFloat(text));
                 case "comment" -> currentTicket.setComment(text);
                 case "refundable" -> currentTicket.setRefundable(Boolean.parseBoolean(text));
-                case "type" -> {
-                    try {
-                        currentTicket.setType(TicketType.valueOf(text));
-                    } catch (IllegalArgumentException e) {
-                        System.out.println("Invalid ticket type");
-                    }
-                }
+                case "type" -> currentTicket.setType(TicketType.valueOf(text));
                 case "x" -> currentCoordinates.setX(Integer.parseInt(text));
                 case "y" -> currentCoordinates.setY(Float.parseFloat(text));
                 case "birthday" -> currentPerson.setBirthday(LocalDateTime.parse(text));
                 case "height" -> currentPerson.setHeight(Integer.parseInt(text));
                 case "weight" -> currentPerson.setWeight(Float.parseFloat(text));
                 case "passportID" -> currentPerson.setPassportID(text);
+                default -> throw new IllegalStateException("Unexpected value: " + currentElement);
             }
         }
 

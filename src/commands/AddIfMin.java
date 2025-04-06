@@ -24,7 +24,7 @@ public class AddIfMin extends Command {
      * @param args
      */
     @Override
-    public void execute(String[] args) {
+    public void execute(String[] args) throws WrongAmountOfArgumentsException {
         if (args.length != 0) throw new WrongAmountOfArgumentsException(0, args.length);
 
         TicketBuilder builder = new TicketBuilder(scannerManager.getScanner());

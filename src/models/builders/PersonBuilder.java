@@ -1,5 +1,6 @@
 package src.models.builders;
 
+import src.exceptions.FieldMustNotBeEmpty;
 import src.models.Person;
 
 import java.time.LocalDate;
@@ -39,17 +40,18 @@ public class PersonBuilder extends Builder<Person> {
         while (true) {
             System.out.println("Enter weight (kg) (not nullable): ");
             String input = scanner.nextLine().trim();
-            if (input.isEmpty()) {
-                System.out.println("Weight cannot be empty!");
-                continue;
-            }
             try {
+                if (input.isEmpty()) {
+                    throw new FieldMustNotBeEmpty("weight");
+                }
                 float weight = Float.parseFloat(input);
                 if (weight <= 0) {
                     System.out.println("Weight must be positive!");
                     continue;
                 }
                 return weight;
+            } catch (FieldMustNotBeEmpty e) {
+                System.out.println(e.getMessage());
             } catch (NumberFormatException e) {
                 System.out.println("Weight must be float");
             }
@@ -60,16 +62,17 @@ public class PersonBuilder extends Builder<Person> {
         while (true) {
             System.out.println("Please enter the height of the person (not nullable):");
             String input = scanner.nextLine().trim();
-            if (input.isEmpty()) {
-                System.out.println("Height must not be empty");
-                continue;
-            }
             try {
+                if (input.isEmpty()) {
+                    throw new FieldMustNotBeEmpty("height");
+                }
                 int height = Integer.parseInt(input);
                 if (height <= 0) {
                     System.out.println("Height must be positive");
                 }
                 return height;
+            } catch (FieldMustNotBeEmpty e) {
+                System.out.println(e.getMessage());
             } catch (NumberFormatException e) {
                 System.out.println("Height must be an integer");
             }

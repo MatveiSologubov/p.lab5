@@ -1,5 +1,6 @@
 package src.commands;
 
+import src.exceptions.ScriptRecursionException;
 import src.exceptions.WrongAmountOfArgumentsException;
 import src.managers.CommandManager;
 import src.managers.ScannerManager;
@@ -27,18 +28,17 @@ public class ExecuteScript extends Command {
      * @param args
      */
     @Override
-    public void execute(String[] args) {
+    public void execute(String[] args) throws WrongAmountOfArgumentsException {
         if (args.length != 1) throw new WrongAmountOfArgumentsException(1, args.length);
 
         String filePath = args[0];
         File scriptFile = new File(filePath);
-        if (runningScripts.contains(filePath)) {
-            System.out.println("Error: Recursion detected");
-            return;
-        }
-        runningScripts.add(filePath);
 
         try (Scanner scriptScanner = new Scanner(scriptFile)) {
+            if (runningScripts.contains(filePath)) {
+                throw new ScriptRecursionException();
+            }
+            runningScripts.add(filePath);
             scannerManager.setScriptScanner(scriptScanner);
             scannerManager.setScriptMode(true);
 
@@ -52,13 +52,17 @@ public class ExecuteScript extends Command {
 
                 Command command = commandManager.getCommand(commandName);
                 if (command != null) {
+                    if (runningScripts.contains(filePath)) throw new ScriptRecursionException();
                     command.execute(arguments);
+                    runningScripts.add(filePath);
                     continue;
                 }
                 System.out.println("Unknown command: " + commandName);
             }
         } catch (FileNotFoundException e) {
             System.out.println("Error: File not found");
+        } catch (ScriptRecursionException | WrongAmountOfArgumentsException e) {
+            System.out.println(e.getMessage());
         } finally {
             runningScripts.remove(filePath);
             scannerManager.setScriptMode(false);
