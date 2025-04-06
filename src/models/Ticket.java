@@ -32,6 +32,10 @@ public class Ticket implements Comparable<Ticket>, Validatable {
         this.person = person;
     }
 
+    public static void setIdCounter(long idCounter) {
+        Ticket.idCounter = idCounter;
+    }
+
     public void update(Ticket ticket) {
         this.name = ticket.getName();
         this.coordinates = ticket.getCoordinates();
@@ -138,7 +142,7 @@ public class Ticket implements Comparable<Ticket>, Validatable {
     }
 
     /**
-     * @return 
+     * @return
      */
     @Override
     public boolean validate() {

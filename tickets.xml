@@ -15,7 +15,7 @@
       <weight>123.0</weight>
     </person>
   </ticket>
-  <ticket id="1">
+  <ticket id="2">
     <name>Concert Ticket</name>
     <coordinates>
       <x>500</x>
@@ -32,7 +32,7 @@
       <passportID>AB123456</passportID>
     </person>
   </ticket>
-  <ticket id="1">
+  <ticket id="3">
     <name>Test</name>
     <coordinates>
       <x>12</x>
@@ -49,7 +49,7 @@
       <passportID>ABED</passportID>
     </person>
   </ticket>
-  <ticket id="1">
+  <ticket id="4">
     <name>Test</name>
     <coordinates>
       <x>12</x>
@@ -66,7 +66,7 @@
       <passportID>ABED</passportID>
     </person>
   </ticket>
-  <ticket id="1">
+  <ticket id="-120">
     <name>Test</name>
     <coordinates>
       <x>12</x>

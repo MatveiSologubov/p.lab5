@@ -9,7 +9,7 @@ import java.util.Set;
 public class CollectionManager {
     private final Set<Long> usedIds = new HashSet<>();
     private final LocalDateTime initTime;
-    private Set<Ticket> collection = new HashSet<>();
+    private final Set<Ticket> collection = new HashSet<>();
 
     public CollectionManager() {
         this.initTime = LocalDateTime.now();
@@ -37,8 +37,15 @@ public class CollectionManager {
         return this.collection;
     }
 
-    public void setCollection(Set<Ticket> collection) {
-        this.collection = collection;
+    public void setCollection(Set<Ticket> newCollection) {
+        collection.clear();
+        usedIds.clear();
+        long maxId = 0;
+        for (Ticket ticket : newCollection) {
+            add(ticket);
+            maxId = Math.max(maxId, ticket.getId());
+        }
+        Ticket.setIdCounter(maxId + 1);
     }
 
     public LocalDateTime getInitTime() {

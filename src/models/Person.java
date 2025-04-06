@@ -61,7 +61,7 @@ public class Person implements Validatable {
     }
 
     /**
-     * @return 
+     * @return
      */
     @Override
     public boolean validate() {
