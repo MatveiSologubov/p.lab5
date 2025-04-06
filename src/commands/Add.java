@@ -1,5 +1,6 @@
 package src.commands;
 
+import src.exceptions.DuplicateIdException;
 import src.managers.CollectionManager;
 import src.managers.ScannerManager;
 import src.models.Ticket;
@@ -24,7 +25,12 @@ public class Add extends Command {
         System.out.println("Starting Ticket Builder...");
         TicketBuilder builder = new TicketBuilder(scannerManager.getScanner());
         Ticket ticket = builder.build();
-        collectionManager.add(ticket);
+        try {
+            collectionManager.add(ticket);
+        } catch (DuplicateIdException e) {
+            System.out.println(e.getMessage());
+            System.out.println("Ticket not added.");
+        }
         System.out.println("Ticket added.");
     }
 

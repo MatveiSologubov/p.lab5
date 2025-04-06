@@ -1,5 +1,6 @@
 package src.commands;
 
+import src.exceptions.DuplicateIdException;
 import src.managers.CollectionManager;
 import src.managers.ScannerManager;
 import src.models.Ticket;
@@ -27,16 +28,26 @@ public class AddIfMin extends Command {
         Ticket ticket = builder.build();
 
         if (collectionManager.getCollection().isEmpty()) {
-            collectionManager.add(ticket);
-            System.out.println("Added Ticket with price " + ticket.getPrice() + " to collection");
-            return;
+            try {
+                collectionManager.add(ticket);
+                System.out.println("Added Ticket with price " + ticket.getPrice() + " to collection");
+                return;
+            } catch (DuplicateIdException e) {
+                System.out.println(e.getMessage());
+                System.out.println("Ticket not added");
+            }
         }
 
         Ticket minTicket = Collections.min(collectionManager.getCollection());
         if (ticket.compareTo(minTicket) < 0) {
-            collectionManager.add(ticket);
-            System.out.println("Added Ticket with price " + ticket.getPrice() + " to collection");
-            return;
+            try {
+                collectionManager.add(ticket);
+                System.out.println("Added Ticket with price " + ticket.getPrice() + " to collection");
+                return;
+            } catch (DuplicateIdException e) {
+                System.out.println(e.getMessage());
+                System.out.println("Ticket not added");
+            }
         }
 
         System.out.println("Ticket not added to collection. Current min price is " + minTicket.getPrice());

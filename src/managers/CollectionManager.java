@@ -1,5 +1,6 @@
 package src.managers;
 
+import src.exceptions.DuplicateIdException;
 import src.models.Ticket;
 
 import java.time.LocalDateTime;
@@ -15,11 +16,10 @@ public class CollectionManager {
         this.initTime = LocalDateTime.now();
     }
 
-    public void add(Ticket ticket) {
+    public void add(Ticket ticket) throws DuplicateIdException {
         final long id = ticket.getId();
         if (usedIds.contains(id)) {
-            System.out.println("Id is already in use");
-            return;
+            throw new DuplicateIdException(id);
         }
         usedIds.add(id);
         collection.add(ticket);
@@ -37,7 +37,7 @@ public class CollectionManager {
         return this.collection;
     }
 
-    public void setCollection(Set<Ticket> newCollection) {
+    public void setCollection(Set<Ticket> newCollection) throws DuplicateIdException {
         collection.clear();
         usedIds.clear();
         long maxId = 0;

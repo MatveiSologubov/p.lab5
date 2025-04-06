@@ -1,5 +1,6 @@
 package src.commands;
 
+import src.exceptions.DuplicateIdException;
 import src.managers.CollectionManager;
 import src.managers.ScannerManager;
 import src.models.Ticket;
@@ -27,16 +28,26 @@ public class AddIfMax extends Command {
         Ticket ticket = ticketBuilder.build();
 
         if (collectionManager.getCollection().isEmpty()) {
-            collectionManager.add(ticket);
-            System.out.println("Added Ticket with price " + ticket.getPrice() + " to collection");
-            return;
+            try {
+                collectionManager.add(ticket);
+                System.out.println("Added Ticket with price " + ticket.getPrice() + " to collection");
+                return;
+            } catch (DuplicateIdException e) {
+                System.out.println(e.getMessage());
+                System.out.println("Ticket not added");
+            }
         }
 
         Ticket maxTicket = Collections.max(collectionManager.getCollection());
         if (ticket.compareTo(maxTicket) > 0) {
-            collectionManager.add(ticket);
-            System.out.println("Added Ticket with price " + ticket.getPrice() + " to collection");
-            return;
+            try {
+                collectionManager.add(ticket);
+                System.out.println("Added Ticket with price " + ticket.getPrice() + " to collection");
+                return;
+            } catch (DuplicateIdException e) {
+                System.out.println(e.getMessage());
+                System.out.println("Ticket not added");
+            }
         }
 
         System.out.println("Ticket not added to collection. Current max price is " + maxTicket.getPrice());
