@@ -69,7 +69,11 @@ public class Program {
             Command command = commandManager.getCommand(args[0]);
             args = Arrays.copyOfRange(args, 1, args.length);
             if (command != null) {
-                command.execute(args);
+                try {
+                    command.execute(args);
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
             } else {
                 System.out.println("Unknown command. Type 'help' for available commands");
             }

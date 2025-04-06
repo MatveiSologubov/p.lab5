@@ -1,6 +1,7 @@
 package src.commands;
 
 import src.exceptions.DuplicateIdException;
+import src.exceptions.WrongAmountOfArgumentsException;
 import src.managers.CollectionManager;
 import src.managers.ScannerManager;
 import src.models.Ticket;
@@ -24,6 +25,8 @@ public class AddIfMax extends Command {
      */
     @Override
     public void execute(String[] args) {
+        if (args.length != 0) throw new WrongAmountOfArgumentsException(0, args.length);
+
         TicketBuilder ticketBuilder = new TicketBuilder(scannerManager.getScanner());
         Ticket ticket = ticketBuilder.build();
 

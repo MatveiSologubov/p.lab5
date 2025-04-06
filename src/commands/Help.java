@@ -1,5 +1,6 @@
 package src.commands;
 
+import src.exceptions.WrongAmountOfArgumentsException;
 import src.managers.CommandManager;
 
 public class Help extends Command {
@@ -11,10 +12,7 @@ public class Help extends Command {
 
     @Override
     public void execute(String[] args) {
-        if (args.length != 0) {
-            System.out.println("Wrong number of arguments");
-            return;
-        }
+        if (args.length != 0) throw new WrongAmountOfArgumentsException(0, args.length);
 
         System.out.println("Available commands:");
         commandManager.getAllCommands().forEach((name, cmd) ->

@@ -1,5 +1,6 @@
 package src.commands;
 
+import src.exceptions.WrongAmountOfArgumentsException;
 import src.managers.CommandManager;
 import src.managers.ScannerManager;
 
@@ -27,10 +28,7 @@ public class ExecuteScript extends Command {
      */
     @Override
     public void execute(String[] args) {
-        if (args.length != 1) {
-            System.out.println("Incorrect number of arguments");
-            return;
-        }
+        if (args.length != 1) throw new WrongAmountOfArgumentsException(1, args.length);
 
         String filePath = args[0];
         File scriptFile = new File(filePath);

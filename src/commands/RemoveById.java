@@ -1,5 +1,6 @@
 package src.commands;
 
+import src.exceptions.WrongAmountOfArgumentsException;
 import src.managers.CollectionManager;
 import src.models.Ticket;
 
@@ -15,10 +16,7 @@ public class RemoveById extends Command {
      */
     @Override
     public void execute(String[] args) {
-        if (args.length != 1) {
-            System.out.println("Wrong number of arguments");
-            return;
-        }
+        if (args.length != 1) throw new WrongAmountOfArgumentsException(1, args.length);
         if (collectionManager.getCollection().isEmpty()) {
             System.out.println("Collection is empty");
         }

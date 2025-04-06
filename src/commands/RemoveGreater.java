@@ -1,5 +1,6 @@
 package src.commands;
 
+import src.exceptions.WrongAmountOfArgumentsException;
 import src.managers.CollectionManager;
 import src.managers.ScannerManager;
 import src.models.Ticket;
@@ -23,10 +24,7 @@ public class RemoveGreater extends Command {
      */
     @Override
     public void execute(String[] args) {
-        if (args.length != 0) {
-            System.out.println("Wrong number of arguments");
-            return;
-        }
+        if (args.length != 0) throw new WrongAmountOfArgumentsException(0, args.length);
         if (collectionManager.getCollection().isEmpty()) {
             System.out.println("Collection is empty");
             return;

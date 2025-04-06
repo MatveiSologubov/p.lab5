@@ -1,5 +1,6 @@
 package src.commands;
 
+import src.exceptions.WrongAmountOfArgumentsException;
 import src.managers.CollectionManager;
 import src.models.Ticket;
 
@@ -20,10 +21,7 @@ public class MinByCreationDate extends Command {
      */
     @Override
     public void execute(String[] args) {
-        if (args.length != 0) {
-            System.out.println("Wrong number of arguments");
-            return;
-        }
+        if (args.length != 0) throw new WrongAmountOfArgumentsException(0, args.length);
 
         Set<Ticket> collection = collectionManager.getCollection();
 

@@ -1,5 +1,6 @@
 package src.commands;
 
+import src.exceptions.WrongAmountOfArgumentsException;
 import src.managers.CollectionManager;
 
 public class Clear extends Command {
@@ -14,10 +15,7 @@ public class Clear extends Command {
      */
     @Override
     public void execute(String[] args) {
-        if (args.length != 0) {
-            System.out.println("Wrong number of arguments");
-            return;
-        }
+        if (args.length != 0) throw new WrongAmountOfArgumentsException(0, args.length);
 
         collectionManager.clearCollection();
     }

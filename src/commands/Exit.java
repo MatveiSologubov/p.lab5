@@ -1,5 +1,7 @@
 package src.commands;
 
+import src.exceptions.WrongAmountOfArgumentsException;
+
 public class Exit extends Command {
     private final Runnable exitHandler;
 
@@ -9,10 +11,7 @@ public class Exit extends Command {
 
     @Override
     public void execute(String[] args) {
-        if (args.length != 0) {
-            System.out.println("Wrong number of arguments");
-            return;
-        }
+        if (args.length != 0) throw new WrongAmountOfArgumentsException(0, args.length);
 
         System.out.println("Exiting program...");
         exitHandler.run();
