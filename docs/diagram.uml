@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>src</OriginalElement>
+  <nodes>
+    <node x="1605.0" y="5673.5">src.commands.Help</node>
+    <node x="2084.0" y="5193.5">src.managers.CommandManager</node>
+    <node x="1269.5" y="5529.5">src.exceptions.FieldMustNotBeEmpty</node>
+    <node x="2954.5" y="4465.0">src.models.Person</node>
+    <node x="2153.0" y="4836.5">src.managers.CollectionManager</node>
+    <node x="1859.5" y="5673.5">src.commands.Update</node>
+    <node x="3168.0" y="5211.5">src.models.builders.TicketBuilder</node>
+    <node x="2889.5" y="5259.5">src.models.builders.PersonBuilder</node>
+    <node x="911.1251980982569" y="5507.0">src.commands.Command</node>
+    <node x="2236.0" y="5673.5">src.commands.Exit</node>
+    <node x="2458.0" y="5673.5">src.commands.FilterLessThanType</node>
+    <node x="1599.0" y="5529.5">src.exceptions.DuplicateIdException</node>
+    <node x="2481.75" y="5074.5">src.managers.FileManager.XmlParser</node>
+    <node x="2801.5" y="5673.5">src.commands.RemoveById</node>
+    <node x="2675.0" y="4465.0">src.models.TicketType</node>
+    <node x="3099.0" y="5673.5">src.commands.ExecuteScript</node>
+    <node x="3527.5" y="5673.5">src.commands.Info</node>
+    <node x="2939.5" y="5007.5">src.models.builders.Builder</node>
+    <node x="1734.5" y="5429.5">src.exceptions.CollectionIsEmptyException</node>
+    <node x="1904.0" y="5529.5">src.exceptions.ScriptRecursionException</node>
+    <node x="3040.0" y="4318.5">src.models.Validatable</node>
+    <node x="1214.5" y="5957.0">src.commands.AddIfMin</node>
+    <node x="1603.5" y="5957.0">src.commands.Clear</node>
+    <node x="2058.0" y="5429.5">src.exceptions.WrongAmountOfArgumentsException</node>
+    <node x="1859.5" y="5957.0">src.commands.Save</node>
+    <node x="1213.5" y="5201.5">java.lang.Exception</node>
+    <node x="2230.0" y="5957.0">src.commands.Add</node>
+    <node x="2509.75" y="4746.5">src.managers.FileManager</node>
+    <node x="2579.5" y="5957.0">src.commands.MinByCreationDate</node>
+    <node x="2131.0" y="4576.5">src.managers.ScannerManager</node>
+    <node x="2913.5" y="5957.0">src.commands.RemoveGreater</node>
+    <node x="3490.5" y="4837.0">src.models.Ticket</node>
+    <node x="3342.0" y="5957.0">src.commands.Show</node>
+    <node x="1411.5" y="5429.5">src.exceptions.ElementNotFoundException</node>
+    <node x="3588.5" y="5957.0">src.commands.FilterGreaterThanPrice</node>
+    <node x="3349.0" y="4513.0">src.models.Coordinates</node>
+    <node x="1734.5" y="4897.5">src.Program</node>
+    <node x="1213.0" y="5673.5">src.commands.AddIfMax</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="src.models.Ticket" target="src.models.Validatable" relationship="REALIZATION">
+      <point x="0.0" y="-333.0" />
+      <point x="3700.0" y="4450.0" />
+      <point x="3120.0" y="4450.0" />
+      <point x="0.0" y="31.5" />
+    </edge>
+    <edge source="src.commands.Save" target="src.commands.Command" relationship="GENERALIZATION">
+      <point x="0.0" y="-56.5" />
+      <point x="2029.0" y="5933.5" />
+      <point x="1004.1251980982569" y="5933.5" />
+      <point x="0.0" y="56.5" />
+    </edge>
+    <edge source="src.commands.Show" target="src.commands.Command" relationship="GENERALIZATION">
+      <point x="0.0" y="-56.5" />
+      <point x="3449.0" y="5933.5" />
+      <point x="1004.1251980982569" y="5933.5" />
+      <point x="0.0" y="56.5" />
+    </edge>
+    <edge source="src.commands.AddIfMax" target="src.commands.Command" relationship="GENERALIZATION">
+      <point x="0.0" y="-56.5" />
+      <point x="1389.0" y="5650.0" />
+      <point x="1004.1251980982569" y="5650.0" />
+      <point x="0.0" y="56.5" />
+    </edge>
+    <edge source="src.exceptions.FieldMustNotBeEmpty" target="java.lang.Exception" relationship="GENERALIZATION">
+      <point x="0.0" y="-31.5" />
+      <point x="0.0" y="79.5" />
+    </edge>
+    <edge source="src.commands.Help" target="src.commands.Command" relationship="GENERALIZATION">
+      <point x="0.0" y="-56.5" />
+      <point x="1709.0" y="5650.0" />
+      <point x="1004.1251980982569" y="5650.0" />
+      <point x="0.0" y="56.5" />
+    </edge>
+    <edge source="src.exceptions.CollectionIsEmptyException" target="java.lang.Exception" relationship="GENERALIZATION">
+      <point x="0.0" y="-31.5" />
+      <point x="1869.0" y="5401.0" />
+      <point x="1389.0" y="5401.0" />
+      <point x="0.0" y="79.5" />
+    </edge>
+    <edge source="src.commands.ExecuteScript" target="src.commands.Command" relationship="GENERALIZATION">
+      <point x="0.0" y="-56.5" />
+      <point x="3289.0" y="5650.0" />
+      <point x="1004.1251980982569" y="5650.0" />
+      <point x="0.0" y="56.5" />
+    </edge>
+    <edge source="src.models.Coordinates" target="src.models.Validatable" relationship="REALIZATION">
+      <point x="0.0" y="-117.0" />
+      <point x="3460.0" y="4450.0" />
+      <point x="3120.0" y="4450.0" />
+      <point x="0.0" y="31.5" />
+    </edge>
+    <edge source="src.exceptions.ScriptRecursionException" target="java.lang.Exception" relationship="GENERALIZATION">
+      <point x="0.0" y="-31.5" />
+      <point x="2029.0" y="5401.0" />
+      <point x="1389.0" y="5401.0" />
+      <point x="0.0" y="79.5" />
+    </edge>
+    <edge source="src.commands.MinByCreationDate" target="src.commands.Command" relationship="GENERALIZATION">
+      <point x="0.0" y="-56.5" />
+      <point x="2729.0" y="5933.5" />
+      <point x="1004.1251980982569" y="5933.5" />
+      <point x="0.0" y="56.5" />
+    </edge>
+    <edge source="src.commands.Clear" target="src.commands.Command" relationship="GENERALIZATION">
+      <point x="0.0" y="-56.5" />
+      <point x="1709.0" y="5933.5" />
+      <point x="1004.1251980982569" y="5933.5" />
+      <point x="0.0" y="56.5" />
+    </edge>
+    <edge source="src.commands.FilterGreaterThanPrice" target="src.commands.Command" relationship="GENERALIZATION">
+      <point x="0.0" y="-56.5" />
+      <point x="3749.0" y="5933.5" />
+      <point x="1004.1251980982569" y="5933.5" />
+      <point x="0.0" y="56.5" />
+    </edge>
+    <edge source="src.managers.FileManager.XmlParser" target="src.managers.FileManager" relationship="INNER_CLASS">
+      <point x="0.0" y="-128.0" />
+      <point x="0.0" y="116.0" />
+    </edge>
+    <edge source="src.models.builders.PersonBuilder" target="src.models.builders.Builder" relationship="GENERALIZATION">
+      <point x="0.0" y="-92.5" />
+      <point x="0.0" y="44.5" />
+    </edge>
+    <edge source="src.commands.FilterLessThanType" target="src.commands.Command" relationship="GENERALIZATION">
+      <point x="0.0" y="-56.5" />
+      <point x="2609.0" y="5650.0" />
+      <point x="1004.1251980982569" y="5650.0" />
+      <point x="0.0" y="56.5" />
+    </edge>
+    <edge source="src.commands.RemoveById" target="src.commands.Command" relationship="GENERALIZATION">
+      <point x="0.0" y="-56.5" />
+      <point x="2929.0" y="5650.0" />
+      <point x="1004.1251980982569" y="5650.0" />
+      <point x="0.0" y="56.5" />
+    </edge>
+    <edge source="src.commands.Exit" target="src.commands.Command" relationship="GENERALIZATION">
+      <point x="0.0" y="-56.5" />
+      <point x="2329.0" y="5650.0" />
+      <point x="1004.1251980982569" y="5650.0" />
+      <point x="0.0" y="56.5" />
+    </edge>
+    <edge source="src.commands.RemoveGreater" target="src.commands.Command" relationship="GENERALIZATION">
+      <point x="0.0" y="-56.5" />
+      <point x="3109.0" y="5933.5" />
+      <point x="1004.1251980982569" y="5933.5" />
+      <point x="0.0" y="56.5" />
+    </edge>
+    <edge source="src.exceptions.WrongAmountOfArgumentsException" target="java.lang.Exception" relationship="GENERALIZATION">
+      <point x="0.0" y="-31.5" />
+      <point x="2229.0" y="5401.0" />
+      <point x="1389.0" y="5401.0" />
+      <point x="0.0" y="79.5" />
+    </edge>
+    <edge source="src.models.Person" target="src.models.Validatable" relationship="REALIZATION">
+      <point x="0.0" y="-165.0" />
+      <point x="0.0" y="31.5" />
+    </edge>
+    <edge source="src.commands.Update" target="src.commands.Command" relationship="GENERALIZATION">
+      <point x="0.0" y="-56.5" />
+      <point x="2029.0" y="5650.0" />
+      <point x="1004.1251980982569" y="5650.0" />
+      <point x="0.0" y="56.5" />
+    </edge>
+    <edge source="src.commands.AddIfMin" target="src.commands.Command" relationship="GENERALIZATION">
+      <point x="0.0" y="-56.5" />
+      <point x="1389.0" y="5933.5" />
+      <point x="1004.1251980982569" y="5933.5" />
+      <point x="0.0" y="56.5" />
+    </edge>
+    <edge source="src.commands.Info" target="src.commands.Command" relationship="GENERALIZATION">
+      <point x="0.0" y="-56.5" />
+      <point x="3629.0" y="5650.0" />
+      <point x="1004.1251980982569" y="5650.0" />
+      <point x="0.0" y="56.5" />
+    </edge>
+    <edge source="src.exceptions.ElementNotFoundException" target="java.lang.Exception" relationship="GENERALIZATION">
+      <point x="0.0" y="-31.5" />
+      <point x="1549.0" y="5401.0" />
+      <point x="1389.0" y="5401.0" />
+      <point x="0.0" y="79.5" />
+    </edge>
+    <edge source="src.models.builders.TicketBuilder" target="src.models.builders.Builder" relationship="GENERALIZATION">
+      <point x="0.0" y="-140.5" />
+      <point x="3289.0" y="5172.0" />
+      <point x="3009.0" y="5172.0" />
+      <point x="0.0" y="44.5" />
+    </edge>
+    <edge source="src.commands.Add" target="src.commands.Command" relationship="GENERALIZATION">
+      <point x="0.0" y="-56.5" />
+      <point x="2389.0" y="5933.5" />
+      <point x="1004.1251980982569" y="5933.5" />
+      <point x="0.0" y="56.5" />
+    </edge>
+    <edge source="src.exceptions.DuplicateIdException" target="java.lang.Exception" relationship="GENERALIZATION">
+      <point x="0.0" y="-31.5" />
+      <point x="1709.0" y="5401.0" />
+      <point x="1389.0" y="5401.0" />
+      <point x="0.0" y="79.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Compact" zoom="0.7178329571106095" showDependencies="false" x="2410.5" y="5194.0" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Constructors</Category>
+    <Category>Fields</Category>
+    <Category>Inner Classes</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
