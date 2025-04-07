@@ -13,10 +13,18 @@ import java.time.format.DateTimeParseException;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Class that saves and loads Tickets from file
+ */
 public class FileManager {
     private XMLStreamWriter writer;
     private int indentLevel = 0;
 
+    /**
+     * Saves collection to filePath
+     * @param collection collection to save
+     * @param filePath path of the file to save
+     */
     public void save(Set<Ticket> collection, String filePath) {
         try (BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(filePath))) {
             XMLOutputFactory factory = XMLOutputFactory.newInstance();
@@ -30,6 +38,11 @@ public class FileManager {
         }
     }
 
+    /**
+     * Write collection content to file
+     * @param collection collection to write
+     * @throws XMLStreamException if there is an error in writing file
+     */
     private void writeXmlContent(Set<Ticket> collection) throws XMLStreamException {
         indentLevel = 0;
         final String lineSeparator = System.lineSeparator();
@@ -94,6 +107,11 @@ public class FileManager {
         writer.writeEndDocument();
     }
 
+    /**
+     * Write start element
+     * @param element element to write
+     * @throws XMLStreamException if there is an error in writing
+     */
     private void writeStartElement(String element)
             throws XMLStreamException {
         writeIndentation();
@@ -101,6 +119,9 @@ public class FileManager {
         indentLevel++;
     }
 
+    /**
+     * Write end element
+     */
     private void writeEndElement()
             throws XMLStreamException {
         indentLevel--;
@@ -108,6 +129,12 @@ public class FileManager {
         writer.writeEndElement();
     }
 
+    /**
+     * Write element to file
+     * @param name name of the element
+     * @param value value of the element
+     * @throws XMLStreamException if there is an error in writing to file
+     */
     private void writeElement(String name, String value)
             throws XMLStreamException {
         writeIndentation();
@@ -116,11 +143,20 @@ public class FileManager {
         writer.writeEndElement();
     }
 
+    /**
+     * Writes to file with indentation
+     * @throws XMLStreamException if there is an error in writing to file
+     */
     private void writeIndentation() throws XMLStreamException {
         String indent = "\t".repeat(indentLevel);
         writer.writeCharacters(System.lineSeparator() + indent);
     }
 
+    /**
+     * Loads collection from file
+     * @param filePath path to file
+     * @return Collection
+     */
     public Set<Ticket> load(String filePath) {
         try (BufferedInputStream stream = new BufferedInputStream(new FileInputStream(filePath))) {
             XMLInputFactory factory = XMLInputFactory.newInstance();
@@ -132,6 +168,9 @@ public class FileManager {
         }
     }
 
+    /**
+     * Class that parses xml files
+     */
     private static class XmlParser {
         private final Set<Ticket> collection = new HashSet<>();
         private Ticket currentTicket;
@@ -139,6 +178,12 @@ public class FileManager {
         private Person currentPerson;
         private String currentElement;
 
+        /**
+         * Parses collection from file
+         * @param reader file reader
+         * @return collection
+         * @throws XMLStreamException if there is an error while reading from file
+         */
         public Set<Ticket> parse(XMLStreamReader reader) throws XMLStreamException {
             while (reader.hasNext()) {
                 int event = reader.next();
@@ -157,6 +202,10 @@ public class FileManager {
             return collection;
         }
 
+        /**
+         * parses start element
+         * @param reader file reader
+         */
         private void handleStartElement(XMLStreamReader reader) {
             currentElement = reader.getLocalName();
             switch (currentElement) {
@@ -166,6 +215,11 @@ public class FileManager {
             }
         }
 
+        /**
+         * Parses values in ticket
+         * @param reader file reader
+         * @throws IllegalStateException if there is an illegal parameter in file
+         */
         private void handleCharacters(XMLStreamReader reader) throws IllegalStateException {
             String text = reader.getText().trim();
             if (text.isEmpty() || currentTicket == null) return;
@@ -187,6 +241,10 @@ public class FileManager {
             }
         }
 
+        /**
+         * parses end element
+         * @param reader file reader
+         */
         private void handleEndElement(XMLStreamReader reader) {
             switch (reader.getLocalName()) {
                 case "ticket" -> completeTicket();
@@ -195,6 +253,10 @@ public class FileManager {
             }
         }
 
+        /**
+         * Creating new ticket instance to parse
+         * @param reader file reader
+         */
         private void initNewTicket(XMLStreamReader reader) {
             currentTicket = new Ticket();
             try {
@@ -204,17 +266,26 @@ public class FileManager {
             }
         }
 
+        /**
+         * Validates and add ticket to collection
+         */
         private void completeTicket() {
             if (currentTicket.validate()) collection.add(currentTicket);
             else System.out.println("Invalid ticket in file");
             currentTicket = null;
         }
 
+        /**
+         * Set coordinates
+         */
         private void attachCoordinates() {
             currentTicket.setCoordinates(currentCoordinates);
             currentCoordinates = null;
         }
 
+        /**
+         * Set person
+         */
         private void attachPerson() {
             currentTicket.setPerson(currentPerson);
             currentPerson = null;

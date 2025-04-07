@@ -7,6 +7,9 @@ import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Manages collection
+ */
 public class CollectionManager {
     private final Set<Long> usedIds = new HashSet<>();
     private final LocalDateTime initTime;
@@ -16,6 +19,11 @@ public class CollectionManager {
         this.initTime = LocalDateTime.now();
     }
 
+    /**
+     * Add ticket to collection if its unique
+     * @param ticket ticket to add
+     * @throws DuplicateIdException if id already used
+     */
     public void add(Ticket ticket) throws DuplicateIdException {
         final long id = ticket.getId();
         if (usedIds.contains(id)) {
@@ -25,6 +33,9 @@ public class CollectionManager {
         collection.add(ticket);
     }
 
+    /**
+     * Clears collection
+     */
     public void clearCollection() {
         collection.clear();
     }
@@ -37,6 +48,10 @@ public class CollectionManager {
         return this.collection;
     }
 
+    /**
+     * Set collection
+     * @param newCollection collection to add
+     */
     public void setCollection(Set<Ticket> newCollection) {
         collection.clear();
         usedIds.clear();

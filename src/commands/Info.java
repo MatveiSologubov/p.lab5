@@ -3,6 +3,9 @@ package src.commands;
 import src.exceptions.WrongAmountOfArgumentsException;
 import src.managers.CollectionManager;
 
+/**
+ * 'Info' command print information about current collection
+ */
 public class Info extends Command {
     final CollectionManager collectionManager;
 
@@ -11,7 +14,9 @@ public class Info extends Command {
     }
 
     /**
-     * executes command
+     * execute command
+     * @param args arguments for command
+     * @throws WrongAmountOfArgumentsException if used provides wrong amount of arguments
      */
     @Override
     public void execute(String[] args) throws WrongAmountOfArgumentsException {

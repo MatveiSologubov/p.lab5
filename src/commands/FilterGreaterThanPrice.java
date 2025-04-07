@@ -5,6 +5,9 @@ import src.exceptions.WrongAmountOfArgumentsException;
 import src.managers.CollectionManager;
 import src.models.Ticket;
 
+/**
+ * 'Filter Greater Than Price' command prints every Ticket which has price greater than specified
+ */
 public class FilterGreaterThanPrice extends Command {
     private final CollectionManager collectionManager;
 
@@ -14,8 +17,7 @@ public class FilterGreaterThanPrice extends Command {
 
     /**
      * execute command
-     *
-     * @param args
+     * @param args price to filter
      */
     @Override
     public void execute(String[] args) {

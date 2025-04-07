@@ -4,6 +4,9 @@ import src.exceptions.WrongAmountOfArgumentsException;
 import src.managers.CollectionManager;
 import src.managers.FileManager;
 
+/**
+ * 'Save' command saves collection to file
+ */
 public class Save extends Command {
     private final CollectionManager collectionManager;
     private final FileManager fileManager;
@@ -17,6 +20,8 @@ public class Save extends Command {
 
     /**
      * execute command
+     * @param args arguments for command
+     * @throws WrongAmountOfArgumentsException if user provides wrong amount of arguments
      */
     @Override
     public void execute(String[] args) throws WrongAmountOfArgumentsException {

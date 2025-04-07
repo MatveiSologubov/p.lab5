@@ -9,6 +9,9 @@ import src.models.builders.TicketBuilder;
 
 import java.util.Set;
 
+/**
+ * 'Remove Greater' command builds ticket and then removes all tickets with bigger price than built ticket
+ */
 public class RemoveGreater extends Command {
     private final CollectionManager collectionManager;
     private final ScannerManager scannerManager;
@@ -20,8 +23,8 @@ public class RemoveGreater extends Command {
 
     /**
      * execute command
-     *
-     * @param args
+     * @param args arguments for command
+     * @throws WrongAmountOfArgumentsException if user provides wrong amount of arguments
      */
     @Override
     public void execute(String[] args) throws WrongAmountOfArgumentsException {

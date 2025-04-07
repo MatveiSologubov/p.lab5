@@ -6,6 +6,9 @@ import src.exceptions.WrongAmountOfArgumentsException;
 import src.managers.CollectionManager;
 import src.models.Ticket;
 
+/**
+ * 'Remove By ID' command removes Ticket with specified id
+ */
 public class RemoveById extends Command {
     final CollectionManager collectionManager;
 
@@ -15,6 +18,7 @@ public class RemoveById extends Command {
 
     /**
      * execute command
+     * @param args id of ticket to be removed
      */
     @Override
     public void execute(String[] args) {

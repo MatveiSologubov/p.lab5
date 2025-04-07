@@ -8,6 +8,9 @@ import src.models.TicketType;
 
 import java.util.Arrays;
 
+/**
+ * 'Filter Less Than Type' prints all ticket which have TicketType less than specified
+ */
 public class FilterLessThanType extends Command {
     private final CollectionManager collectionManager;
 
@@ -17,8 +20,8 @@ public class FilterLessThanType extends Command {
 
     /**
      * execute command
-     *
-     * @param args
+     * @param args TicketType to filter
+     * @throws WrongAmountOfArgumentsException if user provides wrong amount of arguments
      */
     @Override
     public void execute(String[] args) throws WrongAmountOfArgumentsException {

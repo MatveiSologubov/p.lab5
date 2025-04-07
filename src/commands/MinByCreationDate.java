@@ -8,6 +8,9 @@ import src.models.Ticket;
 import java.util.Comparator;
 import java.util.Set;
 
+/**
+ * 'Min By Creation Date' print Ticket with minimum creation date
+ */
 public class MinByCreationDate extends Command {
     private final CollectionManager collectionManager;
 
@@ -17,8 +20,8 @@ public class MinByCreationDate extends Command {
 
     /**
      * execute command
-     *
-     * @param args
+     * @param args arguments for command
+     * @throws WrongAmountOfArgumentsException if user provides wrong amount of arguments
      */
     @Override
     public void execute(String[] args) throws WrongAmountOfArgumentsException {

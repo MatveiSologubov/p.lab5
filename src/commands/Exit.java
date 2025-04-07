@@ -2,6 +2,9 @@ package src.commands;
 
 import src.exceptions.WrongAmountOfArgumentsException;
 
+/**
+ * 'Exit' command exits the application
+ */
 public class Exit extends Command {
     private final Runnable exitHandler;
 
@@ -9,6 +12,11 @@ public class Exit extends Command {
         this.exitHandler = exitHandler;
     }
 
+    /**
+     *
+     * @param args arguments for command
+     * @throws WrongAmountOfArgumentsException if user puts incorrect amount of arguments
+     */
     @Override
     public void execute(String[] args) throws WrongAmountOfArgumentsException {
         if (args.length != 0) throw new WrongAmountOfArgumentsException(0, args.length);

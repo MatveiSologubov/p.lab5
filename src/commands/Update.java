@@ -8,6 +8,9 @@ import src.managers.ScannerManager;
 import src.models.Ticket;
 import src.models.builders.TicketBuilder;
 
+/**
+ * 'Update' command builds Ticket and the updates Ticket with specified id with data from new Ticket
+ */
 public class Update extends Command {
     private final CollectionManager collectionManager;
     private final ScannerManager scannerManager;
@@ -19,8 +22,8 @@ public class Update extends Command {
 
     /**
      * execute command
-     *
-     * @param args
+     * @param args arguments for command
+     * @throws WrongAmountOfArgumentsException if user provides wrong amount of arguments
      */
     @Override
     public void execute(String[] args) throws WrongAmountOfArgumentsException {

@@ -9,6 +9,9 @@ import src.models.builders.TicketBuilder;
 
 import java.util.Collections;
 
+/**
+ * 'Add If Min' commands builds and adds element to collection if its valid and has minimum price
+ */
 public class AddIfMin extends Command {
     private final CollectionManager collectionManager;
     private final ScannerManager scannerManager;
@@ -21,7 +24,7 @@ public class AddIfMin extends Command {
     /**
      * execute command
      *
-     * @param args
+     * @param args arguments for command
      */
     @Override
     public void execute(String[] args) throws WrongAmountOfArgumentsException {

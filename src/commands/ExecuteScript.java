@@ -12,6 +12,9 @@ import java.util.HashSet;
 import java.util.Scanner;
 import java.util.Set;
 
+/**
+ * 'Execute Script Command' executes script which is specified in args
+ */
 public class ExecuteScript extends Command {
     private final static Set<String> runningScripts = new HashSet<>();
     private final CommandManager commandManager;
@@ -25,7 +28,7 @@ public class ExecuteScript extends Command {
     /**
      * execute command
      *
-     * @param args
+     * @param args path to script file
      */
     @Override
     public void execute(String[] args) throws WrongAmountOfArgumentsException {

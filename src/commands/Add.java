@@ -7,6 +7,9 @@ import src.managers.ScannerManager;
 import src.models.Ticket;
 import src.models.builders.TicketBuilder;
 
+/**
+ * 'Add' commands builds and adds element to collection if its valid
+ */
 public class Add extends Command {
     private final CollectionManager collectionManager;
     private final ScannerManager scannerManager;
