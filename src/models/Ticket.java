@@ -142,7 +142,8 @@ public class Ticket implements Comparable<Ticket>, Validatable {
     }
 
     /**
-     * @return
+     * Validates Ticket
+     * @return returns true if all fields in Ticket are valid
      */
     @Override
     public boolean validate() {

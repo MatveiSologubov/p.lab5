@@ -38,7 +38,8 @@ public class Coordinates implements Validatable {
     }
 
     /**
-     *
+     * Validates Coordinates
+     * @return returns true if Coordinates are valid
      */
     @Override
     public boolean validate() {

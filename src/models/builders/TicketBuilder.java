@@ -10,6 +10,9 @@ import java.time.ZonedDateTime;
 import java.util.Arrays;
 import java.util.Scanner;
 
+/**
+ * Class for building Tickets
+ */
 public class TicketBuilder extends Builder<Ticket> {
     private final Scanner scanner;
 
@@ -17,6 +20,10 @@ public class TicketBuilder extends Builder<Ticket> {
         this.scanner = scanner;
     }
 
+    /**
+     * Builds Ticket
+     * @return Ticket that was built
+     */
     @Override
     public Ticket build() {
         String name = readName();

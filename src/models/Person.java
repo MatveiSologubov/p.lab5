@@ -61,7 +61,8 @@ public class Person implements Validatable {
     }
 
     /**
-     * @return
+     * Validates Person
+     * @return returns true if all fields in Person are valid
      */
     @Override
     public boolean validate() {

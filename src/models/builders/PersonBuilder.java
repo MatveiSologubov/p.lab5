@@ -8,6 +8,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
+/**
+ * Class for building Persons
+ */
 public class PersonBuilder extends Builder<Person> {
     private final Scanner scanner;
 
@@ -16,7 +19,8 @@ public class PersonBuilder extends Builder<Person> {
     }
 
     /**
-     * @return
+     * Builds Person
+     * @return Person that was built
      */
     @Override
     public Person build() {
