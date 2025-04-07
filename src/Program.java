@@ -21,6 +21,10 @@ public class Program {
 
     public Program() {
         filePath = System.getenv("COLLECTION_FILE");
+        if (filePath == null) {
+            System.out.println("File path cannot be null");
+            System.exit(0);
+        }
         ScannerManager scannerManager = new ScannerManager(scanner);
 
         commandManager.addCommand("help", new Help(commandManager));
