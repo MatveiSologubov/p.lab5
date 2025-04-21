@@ -5,7 +5,6 @@ import src.exceptions.WrongAmountOfArgumentsException;
 import src.managers.CollectionManager;
 import src.models.Ticket;
 
-import java.util.Comparator;
 import java.util.Set;
 
 /**
@@ -32,9 +31,12 @@ public class MinByCreationDate extends Command {
                 throw new CollectionIsEmptyException();
             }
 
-            Ticket minTicket = collection.stream()
-                    .min(Comparator.comparing(Ticket::getCreationDate))
-                    .orElse(null);
+            Ticket minTicket = collection.iterator().next();
+            for (Ticket t : collection) {
+                if (t.compareTo(minTicket) < 0) {
+                    minTicket = t;
+                }
+            }
 
             System.out.println(minTicket);
         } catch (CollectionIsEmptyException e) {
