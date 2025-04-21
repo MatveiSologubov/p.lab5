@@ -1,7 +1,7 @@
 package src.exceptions;
 
 /**
- * throws if element could not be finded
+ * throws if element could not be found
  */
 public class ElementNotFoundException extends Exception {
     public ElementNotFoundException(String message) {
