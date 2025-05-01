@@ -55,9 +55,7 @@ public class ExecuteScript extends Command {
 
                 Command command = commandManager.getCommand(commandName);
                 if (command != null) {
-                    if (runningScripts.contains(filePath)) throw new ScriptRecursionException();
                     command.execute(arguments);
-                    runningScripts.add(filePath);
                     continue;
                 }
                 System.out.println("Unknown command: " + commandName);
